@@ -66,6 +66,10 @@ export function ContactHero() {
     }
 
     wrap.insertBefore(fragment, front);
+
+    return () => {
+      wrap.querySelectorAll(".slice").forEach((el) => el.remove());
+    };
   }, []);
 
   // 2. Pause animation when off-screen (IntersectionObserver) or tab is hidden (visibilitychange)
