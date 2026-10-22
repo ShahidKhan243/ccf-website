@@ -37,12 +37,16 @@ const CONTACT_CHANNELS = [
 
 export function ContactHero() {
   const phoneWrapRef = useRef<HTMLDivElement>(null);
-  const slicesRef = useRef<HTMLDivElement>(null);
+  const phoneFrontRef = useRef<HTMLDivElement>(null);
 
-  // 1. Build 28 3D phone thickness slices in ONE DocumentFragment insert
+  // 1. Build 28 3D phone thickness slices in ONE DocumentFragment insert directly into phoneWrap
   useEffect(() => {
-    const container = slicesRef.current;
-    if (!container || container.hasChildNodes()) return;
+    const wrap = phoneWrapRef.current;
+    const front = phoneFrontRef.current;
+    if (!wrap || !front) return;
+
+    // Clean up any existing slices to handle React StrictMode dev remount
+    wrap.querySelectorAll(".slice").forEach((el) => el.remove());
 
     const fragment = document.createDocumentFragment();
     const depth = 70;
@@ -61,7 +65,7 @@ export function ContactHero() {
       fragment.appendChild(slice);
     }
 
-    container.appendChild(fragment);
+    wrap.insertBefore(fragment, front);
   }, []);
 
   // 2. Pause animation when off-screen (IntersectionObserver) or tab is hidden (visibilitychange)
@@ -413,70 +417,67 @@ export function ContactHero() {
               {/* 3D Ground Shadow: radial-gradient, no filter:blur */}
               <div className="shadow3d" aria-hidden="true" />
 
-              {/* 28 Stacked Slices container (built in 1 DocumentFragment) */}
-              <div ref={slicesRef} className="slices-container" aria-hidden="true" />
-
-              {/* Left Edge Metallic Physical Buttons */}
-              <div
-                style={{
-                  position: "absolute",
-                  left: "-4px",
-                  top: "110px",
-                  width: "4px",
-                  height: "26px",
-                  borderRadius: "2px 0 0 2px",
-                  background: "linear-gradient(to right, #9c7c38, #d9bd7a)",
-                  transform: "translateZ(30px)",
-                  pointerEvents: "none",
-                }}
-                aria-hidden="true"
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  left: "-4px",
-                  top: "155px",
-                  width: "4px",
-                  height: "50px",
-                  borderRadius: "2px 0 0 2px",
-                  background: "linear-gradient(to right, #9c7c38, #d9bd7a)",
-                  transform: "translateZ(30px)",
-                  pointerEvents: "none",
-                }}
-                aria-hidden="true"
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  left: "-4px",
-                  top: "218px",
-                  width: "4px",
-                  height: "50px",
-                  borderRadius: "2px 0 0 2px",
-                  background: "linear-gradient(to right, #9c7c38, #d9bd7a)",
-                  transform: "translateZ(30px)",
-                  pointerEvents: "none",
-                }}
-                aria-hidden="true"
-              />
-              {/* Right Edge Power Button */}
-              <div
-                style={{
-                  position: "absolute",
-                  right: "-4px",
-                  top: "170px",
-                  width: "4px",
-                  height: "68px",
-                  borderRadius: "0 2px 2px 0",
-                  background: "linear-gradient(to left, #9c7c38, #d9bd7a)",
-                  transform: "translateZ(30px)",
-                  pointerEvents: "none",
-                }}
-                aria-hidden="true"
-              />
-
               {/* Front Face .phone (translateZ(35px)) */}
-              <div className="phone">
+              <div ref={phoneFrontRef} className="phone">
+                {/* Left Edge Metallic Physical Buttons */}
+                <div
+                  style={{
+                    position: "absolute",
+                    left: "-4px",
+                    top: "110px",
+                    width: "4px",
+                    height: "26px",
+                    borderRadius: "2px 0 0 2px",
+                    background: "linear-gradient(to right, #9c7c38, #d9bd7a)",
+                    transform: "translateZ(2px)",
+                    pointerEvents: "none",
+                  }}
+                  aria-hidden="true"
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    left: "-4px",
+                    top: "155px",
+                    width: "4px",
+                    height: "50px",
+                    borderRadius: "2px 0 0 2px",
+                    background: "linear-gradient(to right, #9c7c38, #d9bd7a)",
+                    transform: "translateZ(2px)",
+                    pointerEvents: "none",
+                  }}
+                  aria-hidden="true"
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    left: "-4px",
+                    top: "218px",
+                    width: "4px",
+                    height: "50px",
+                    borderRadius: "2px 0 0 2px",
+                    background: "linear-gradient(to right, #9c7c38, #d9bd7a)",
+                    transform: "translateZ(2px)",
+                    pointerEvents: "none",
+                  }}
+                  aria-hidden="true"
+                />
+                {/* Right Edge Power Button */}
+                <div
+                  style={{
+                    position: "absolute",
+                    right: "-4px",
+                    top: "170px",
+                    width: "4px",
+                    height: "68px",
+                    borderRadius: "0 2px 2px 0",
+                    background: "linear-gradient(to left, #9c7c38, #d9bd7a)",
+                    transform: "translateZ(2px)",
+                    pointerEvents: "none",
+                  }}
+                  aria-hidden="true"
+                />
+
                 {/* Inside .screen (border-radius:44px, navy gradient) */}
                 <div className="screen flex flex-col justify-between p-4.5 text-white">
                   {/* Dynamic Island Pill */}
