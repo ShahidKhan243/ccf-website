@@ -200,7 +200,7 @@ export function ContactHero() {
           {/* RIGHT COLUMN: Visual Stage with 3D Phone & Overlays       */}
           {/* ========================================================= */}
           <div className="lg:col-span-7 xl:col-span-7 relative w-full flex flex-col items-center justify-center min-h-[680px] sm:min-h-[740px] lg:min-h-[820px] [transform-style:preserve-3d]">
-            {/* 1. Large Gold Sphere / Orb (Bottom-Right) - No filter:blur */}
+            {/* 1. Large Gold Sphere / Orb (Bottom-Right) - No filter:blur, with overlay */}
             <div
               className="gold-orb absolute right-2 sm:right-6 lg:right-4 xl:right-10 bottom-6 sm:bottom-12 w-44 h-44 sm:w-56 sm:h-56 lg:w-60 lg:h-60 rounded-full pointer-events-none z-10"
               style={{
@@ -210,7 +210,16 @@ export function ContactHero() {
                   "0 25px 60px rgba(184, 150, 79, 0.4), inset 0 -10px 25px rgba(138, 106, 42, 0.6), inset 0 10px 20px rgba(255, 242, 201, 0.8)",
               }}
               aria-hidden="true"
-            />
+            >
+              {/* Repeating radial-gradient overlay on desktop, hidden on mobile */}
+              <div
+                className="gold-orb-overlay absolute inset-0 rounded-full pointer-events-none"
+                style={{
+                  background:
+                    "repeating-radial-gradient(circle at 35% 30%, transparent 0, transparent 8px, rgba(255,255,255,0.06) 9px, transparent 11px)",
+                }}
+              />
+            </div>
 
             {/* 2. Gold Circular Badge (Top-Right) */}
             <div
@@ -596,6 +605,7 @@ export function ContactHero() {
                     href={card.href}
                     target={card.isExternal ? "_blank" : undefined}
                     rel={card.isExternal ? "noopener noreferrer" : undefined}
+                    style={{ contain: "layout style" }}
                     className={`contact-card group relative z-50 flex items-center justify-between gap-3.5 p-3 sm:p-3.5 pr-4 sm:pr-5 pointer-events-auto ${card.desktopClasses} lg:absolute w-full lg:w-auto`}
                     aria-label={`${card.label}: ${card.value}`}
                   >
@@ -806,12 +816,23 @@ export function ContactHero() {
           }
 
           .gold-orb {
-            display: none;
-            box-shadow: 0 10px 25px rgba(184, 150, 79, 0.2) !important;
+            width: 130px !important;
+            height: 130px !important;
+            right: 0px !important;
+            bottom: 20px !important;
+            box-shadow: 0 10px 25px rgba(184, 150, 79, 0.25), inset 0 -5px 12px rgba(138, 106, 42, 0.4) !important;
+          }
+
+          .gold-orb-overlay {
+            display: none !important;
           }
 
           .gold-badge {
-            display: none;
+            display: flex;
+            width: 44px !important;
+            height: 44px !important;
+            right: 12px !important;
+            top: 12px !important;
           }
 
           .tagline {
