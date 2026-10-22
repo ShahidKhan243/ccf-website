@@ -1,0 +1,81 @@
+/**
+ * CCF Homepage Static & Mock Data
+ *
+ * NOTE: This file isolates mock and preview data used on the public home page.
+ * All facts adhere strictly to the CCF Product Engineering Handbook v0.5 FINAL.
+ *
+ * Future Phase integration:
+ * - featuredEvents -> replaced by Prisma query `prisma.event.findMany({ where: { status: { in: [...] } } })`
+ * - departments -> replaced by Prisma query `prisma.department.findMany({ where: { active: true } })`
+ * - leadership -> replaced by Prisma query `prisma.member.findMany(...)`
+ */
+
+import { CCF_DEPARTMENTS, type CcfDepartment } from "@/lib/data/departments";
+
+export type HomepageDepartment = CcfDepartment;
+
+/**
+ * Five confirmed CCF departments shared from canonical departments data.
+ */
+export const HOMEPAGE_DEPARTMENTS: readonly HomepageDepartment[] = CCF_DEPARTMENTS;
+
+import { CCF_EVENTS, type CcfEvent } from "@/lib/data/events";
+
+export type HomepageEvent = CcfEvent;
+
+/**
+ * Confirmed CCF events shared from canonical events data.
+ * Historical events are marked as previous events, avoiding stale or unverified registration claims.
+ */
+export const HOMEPAGE_FEATURED_EVENTS: readonly HomepageEvent[] = CCF_EVENTS;
+
+import { CCF_LEADERSHIP, type CcfLeader } from "@/lib/data/members";
+
+export type HomepageLeader = CcfLeader;
+
+/**
+ * Confirmed CCF executive leadership board shared from canonical members data.
+ */
+export const HOMEPAGE_LEADERSHIP: readonly HomepageLeader[] = CCF_LEADERSHIP;
+
+export interface ValueProposition {
+  id: string;
+  title: string;
+  description: string;
+  iconName: "BookOpen" | "LineChart" | "Trophy" | "Users";
+}
+
+/**
+ * Core value proposition pillars reflecting CCF's mission at Crescent College.
+ * Descriptions are conservative and defensible.
+ */
+export const HOMEPAGE_VALUE_PROPS: readonly ValueProposition[] = [
+  {
+    id: "vp-learning",
+    title: "Financial Literacy & Learning",
+    description:
+      "Introductory and practical discussions covering personal finance, basic market concepts, and fiscal awareness.",
+    iconName: "BookOpen",
+  },
+  {
+    id: "vp-exposure",
+    title: "Practical Market Exposure",
+    description:
+      "Interactive sessions, case discussions, and applied exercises connecting theory with practical understanding.",
+    iconName: "LineChart",
+  },
+  {
+    id: "vp-competitions",
+    title: "Events & Competitions",
+    description:
+      "Symposiums, quizzes, and inter-collegiate challenges hosted for students interested in finance.",
+    iconName: "Trophy",
+  },
+  {
+    id: "vp-community",
+    title: "Collaborative Finance Community",
+    description:
+      "A student community bringing together peers across disciplines at Crescent College who share an interest in finance.",
+    iconName: "Users",
+  },
+] as const;
