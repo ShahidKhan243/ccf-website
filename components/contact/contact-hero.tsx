@@ -1,20 +1,9 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { Mail, ChevronRight, TrendingUp, Sparkles, ArrowRight } from "lucide-react";
 import { InstagramIcon, LinkedinIcon } from "./social-icons";
-
-/**
- * Precomputed 3D slice depth configuration.
- * Generates 57 stacked slices behind the front face to create solid side walls with visible thickness.
- */
-const PHONE_SLICES = Array.from({ length: 57 }, (_, i) => {
-  const sliceIndex = 56 - i;
-  const isDark = sliceIndex % 6 === 0;
-  const z = 35 - (sliceIndex + 1) * 1.25;
-  return { sliceIndex, isDark, z };
-});
 
 const CONTACT_CHANNELS = [
   {
@@ -47,20 +36,74 @@ const CONTACT_CHANNELS = [
 ];
 
 export function ContactHero() {
-  const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
-  const stageRef = useRef<HTMLDivElement>(null);
+  const phoneWrapRef = useRef<HTMLDivElement>(null);
+  const slicesRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!stageRef.current) return;
-    const rect = stageRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-    setMouseOffset({ x, y });
-  };
+  // 1. Build 28 3D phone thickness slices in ONE DocumentFragment insert
+  useEffect(() => {
+    const container = slicesRef.current;
+    if (!container || container.hasChildNodes()) return;
 
-  const handleMouseLeave = () => {
-    setMouseOffset({ x: 0, y: 0 });
-  };
+    const fragment = document.createDocumentFragment();
+    const depth = 70;
+    const count = 28;
+    const step = depth / count;
+
+    for (let i = count - 1; i >= 0; i--) {
+      const slice = document.createElement("div");
+      const isDark = i % 3 === 0;
+      slice.className = `slice ${isDark ? "dark" : ""}`;
+      slice.style.position = "absolute";
+      slice.style.inset = "0";
+      slice.style.borderRadius = "54px";
+      slice.style.transform = `translateZ(${35 - (i + 1) * step}px)`;
+      slice.style.pointerEvents = "none";
+      fragment.appendChild(slice);
+    }
+
+    container.appendChild(fragment);
+  }, []);
+
+  // 2. Pause animation when off-screen (IntersectionObserver) or tab is hidden (visibilitychange)
+  useEffect(() => {
+    const phone = phoneWrapRef.current;
+    if (!phone) return;
+
+    let isIntersecting = true;
+    let isDocVisible = typeof document !== "undefined" ? !document.hidden : true;
+
+    const updatePlayState = () => {
+      if (isIntersecting && isDocVisible) {
+        phone.classList.remove("anim-paused");
+      } else {
+        phone.classList.add("anim-paused");
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          isIntersecting = entry.isIntersecting;
+        }
+        updatePlayState();
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(phone);
+
+    const handleVisibilityChange = () => {
+      isDocVisible = !document.hidden;
+      updatePlayState();
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
 
   return (
     <section
@@ -132,7 +175,7 @@ export function ContactHero() {
               {/* Send a Message (Gold Gradient) */}
               <a
                 href="mailto:crescentcluboffinance26@gmail.com"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-bold text-sm text-[#14203a] shadow-md hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
+                className="btn-send-message inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-bold text-sm text-[#14203a] shadow-md transition-transform"
                 style={{
                   background:
                     "linear-gradient(135deg, #e6cf98 0%, #b8964f 55%, #9c7c38 100%)",
@@ -145,7 +188,7 @@ export function ContactHero() {
               {/* Explore Events (White with 1.5px #d9cfb8 border) */}
               <Link
                 href="/events"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm text-[#14203a] bg-white border-[1.5px] border-[#d9cfb8] hover:border-[#b8964f] hover:bg-[#fbf9f4] hover:scale-[1.02] active:scale-[0.98] shadow-sm transition-all"
+                className="btn-explore-events inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm text-[#14203a] bg-white border-[1.5px] border-[#d9cfb8] shadow-sm transition-transform"
               >
                 <span>Explore Events</span>
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -156,13 +199,8 @@ export function ContactHero() {
           {/* ========================================================= */}
           {/* RIGHT COLUMN: Visual Stage with 3D Phone & Overlays       */}
           {/* ========================================================= */}
-          <div
-            ref={stageRef}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            className="lg:col-span-7 xl:col-span-7 relative w-full flex flex-col items-center justify-center min-h-[680px] sm:min-h-[740px] lg:min-h-[820px] [transform-style:preserve-3d]"
-          >
-            {/* 1. Large Gold Sphere / Orb (Bottom-Right) */}
+          <div className="lg:col-span-7 xl:col-span-7 relative w-full flex flex-col items-center justify-center min-h-[680px] sm:min-h-[740px] lg:min-h-[820px] [transform-style:preserve-3d]">
+            {/* 1. Large Gold Sphere / Orb (Bottom-Right) - No filter:blur */}
             <div
               className="gold-orb absolute right-2 sm:right-6 lg:right-4 xl:right-10 bottom-6 sm:bottom-12 w-44 h-44 sm:w-56 sm:h-56 lg:w-60 lg:h-60 rounded-full pointer-events-none z-10"
               style={{
@@ -183,13 +221,13 @@ export function ContactHero() {
               }}
               aria-hidden="true"
             >
-              <div className="w-full h-full rounded-full flex items-center justify-center bg-white/20 backdrop-blur-xs">
+              <div className="w-full h-full rounded-full flex items-center justify-center bg-white/20">
                 <TrendingUp className="w-6 h-6 text-[#14203a] stroke-[2.75]" />
               </div>
             </div>
 
             {/* 3. Frosted-Glass Stats Card (Top-Right) */}
-            <div className="stats-card absolute -right-2 sm:right-2 lg:-right-4 xl:right-2 top-14 sm:top-18 lg:top-14 z-40 w-[270px] sm:w-[290px] backdrop-blur-md bg-white/85 border border-[#e6cf98]/70 rounded-[22px] p-4 shadow-[0_16px_36px_rgba(20,32,58,0.08)] pointer-events-auto">
+            <div className="stats-card absolute -right-2 sm:right-2 lg:-right-4 xl:right-2 top-14 sm:top-18 lg:top-14 z-40 w-[270px] sm:w-[290px] rounded-[22px] p-4 pointer-events-auto">
               <div className="flex items-center justify-between pb-2 border-b border-[#ede5d4]">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#14203a]">
                   Club Growth
@@ -273,7 +311,7 @@ export function ContactHero() {
             </div>
 
             {/* 4. Frosted-Glass Radar-Chart Card (Bottom-Left of Phone) */}
-            <div className="radar-card absolute left-2 sm:-left-4 lg:-left-6 xl:left-0 bottom-16 sm:bottom-20 z-40 w-[220px] sm:w-[240px] backdrop-blur-md bg-white/85 border border-[#e6cf98]/70 rounded-[22px] p-3.5 shadow-[0_16px_36px_rgba(20,32,58,0.08)] pointer-events-auto">
+            <div className="radar-card absolute left-2 sm:-left-4 lg:-left-6 xl:left-0 bottom-16 sm:bottom-20 z-40 w-[220px] sm:w-[240px] rounded-[22px] p-3.5 pointer-events-auto">
               <div className="flex items-center justify-between pb-1.5 border-b border-[#ede5d4]">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#14203a]">
                   Competency Radar
@@ -362,28 +400,12 @@ export function ContactHero() {
             {/* ========================================================= */}
             {/* 5. 3D TILTED PHONE in the center (visible depth slices)   */}
             {/* ========================================================= */}
-            <div
-              className="phoneWrap"
-              style={{
-                transform: `perspective(1400px) rotateX(${22 - mouseOffset.y * 3}deg) rotateY(${
-                  -42 + mouseOffset.x * 4
-                }deg) rotateZ(-36deg)`,
-              }}
-            >
-              {/* 3D Soft Blurred Shadow */}
+            <div ref={phoneWrapRef} className="phoneWrap">
+              {/* 3D Ground Shadow: radial-gradient, no filter:blur */}
               <div className="shadow3d" aria-hidden="true" />
 
-              {/* 56 Stacked Slices for Solid Visible Wall Thickness */}
-              {PHONE_SLICES.map(({ sliceIndex, isDark, z }) => (
-                <div
-                  key={sliceIndex}
-                  className={`slice ${isDark ? "dark" : ""}`}
-                  style={{
-                    transform: `translateZ(${z}px)`,
-                  }}
-                  aria-hidden="true"
-                />
-              ))}
+              {/* 28 Stacked Slices container (built in 1 DocumentFragment) */}
+              <div ref={slicesRef} className="slices-container" aria-hidden="true" />
 
               {/* Left Edge Metallic Physical Buttons */}
               <div
@@ -574,7 +596,7 @@ export function ContactHero() {
                     href={card.href}
                     target={card.isExternal ? "_blank" : undefined}
                     rel={card.isExternal ? "noopener noreferrer" : undefined}
-                    className={`contact-card group relative z-50 flex items-center justify-between gap-3.5 bg-white/95 backdrop-blur-md rounded-[22px] p-3 sm:p-3.5 pr-4 sm:pr-5 border border-[#ede5d4] shadow-[0_14px_34px_rgba(184,150,79,0.18),0_4px_12px_rgba(20,32,58,0.06)] hover:-translate-y-[3px] hover:border-[#b8964f] hover:shadow-2xl transition-all duration-300 pointer-events-auto ${card.desktopClasses} lg:absolute w-full lg:w-auto`}
+                    className={`contact-card group relative z-50 flex items-center justify-between gap-3.5 p-3 sm:p-3.5 pr-4 sm:pr-5 pointer-events-auto ${card.desktopClasses} lg:absolute w-full lg:w-auto`}
                     aria-label={`${card.label}: ${card.value}`}
                   >
                     <div className="flex items-center gap-3 min-w-0">
@@ -605,23 +627,36 @@ export function ContactHero() {
         </div>
       </div>
 
-      {/* Scoped CSS for 3D Phone geometry, slices, and responsive adaptations */}
+      {/* Scoped CSS optimized for rendering & mobile performance */}
       <style>{`
+        /* 2. will-change:transform on .phoneWrap, animate ONLY transform (7s ease-in-out float) */
         .phoneWrap {
           position: absolute;
           width: 330px;
           height: 680px;
           transform-style: preserve-3d;
-          animation: phoneRotate 6s ease-in-out infinite alternate;
           will-change: transform;
+          animation: phoneFloat 7s ease-in-out infinite alternate;
         }
 
-        @keyframes phoneRotate {
+        @keyframes phoneFloat {
           0% {
-            transform: perspective(1400px) rotateX(22deg) rotateY(-36deg) rotateZ(-36deg);
+            transform: perspective(1400px) rotateX(22deg) rotateY(-42deg) rotateZ(-36deg) translate3d(0, 0, 0);
           }
           100% {
-            transform: perspective(1400px) rotateX(22deg) rotateY(-46deg) rotateZ(-36deg);
+            transform: perspective(1400px) rotateX(20deg) rotateY(-36deg) rotateZ(-36deg) translate3d(0, -12px, 0);
+          }
+        }
+
+        /* 3. Pause animation when off-screen or document hidden */
+        .phoneWrap.anim-paused {
+          animation-play-state: paused !important;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .phoneWrap {
+            animation: none !important;
+            transform: perspective(1400px) rotateX(22deg) rotateY(-42deg) rotateZ(-36deg) !important;
           }
         }
 
@@ -656,14 +691,90 @@ export function ContactHero() {
           background: linear-gradient(135deg, #2c3b60, #0b1226);
         }
 
+        /* 4. Replace filter:blur on ground shadow with radial-gradient */
         .shadow3d {
           position: absolute;
-          inset: 18px;
-          border-radius: 54px;
-          background: rgba(90, 65, 20, 0.45);
-          filter: blur(28px);
+          inset: -20px;
+          border-radius: 64px;
+          background: radial-gradient(ellipse 65% 65% at 50% 50%, rgba(90, 65, 20, 0.45) 0%, rgba(90, 65, 20, 0.22) 45%, transparent 75%);
           transform: translateZ(-60px) translate(40px, 50px);
           pointer-events: none;
+        }
+
+        /* 5. backdrop-filter only at (min-width: 900px) and (hover: hover), solid rgba on mobile */
+        .stats-card,
+        .radar-card {
+          background: rgba(255, 255, 255, 0.9);
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
+          border: 1px solid rgba(230, 207, 152, 0.6);
+          box-shadow: 0 6px 18px rgba(20, 32, 58, 0.05);
+        }
+
+        @media (min-width: 900px) and (hover: hover) {
+          .stats-card,
+          .radar-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 16px 36px rgba(20, 32, 58, 0.08);
+          }
+        }
+
+        /* 6. Transitions: transform .16s cubic-bezier(.2,.7,.2,1), pseudo-element opacity for hover shadow */
+        /* 7. contain: layout style on floating contact cards */
+        .contact-card {
+          contain: layout style;
+          isolation: isolate;
+          background: #ffffff;
+          border-radius: 22px;
+          border: 1.5px solid #ede5d4;
+          box-shadow: 0 4px 14px rgba(184, 150, 79, 0.12), 0 2px 6px rgba(20, 32, 58, 0.04);
+          transition: transform 0.16s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.16s ease;
+        }
+
+        .contact-card::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: 22px;
+          box-shadow: 0 18px 40px rgba(184, 150, 79, 0.22), 0 6px 16px rgba(20, 32, 58, 0.08);
+          opacity: 0;
+          transition: opacity 0.16s cubic-bezier(0.2, 0.7, 0.2, 1);
+          pointer-events: none;
+          z-index: -1;
+        }
+
+        @media (hover: hover) {
+          .contact-card:hover {
+            transform: translateY(-3px);
+            border-color: #b8964f;
+          }
+          .contact-card:hover::after {
+            opacity: 1;
+          }
+
+          .btn-send-message {
+            transition: transform 0.16s cubic-bezier(0.2, 0.7, 0.2, 1);
+          }
+          .btn-send-message:hover {
+            transform: scale(1.02);
+          }
+          .btn-send-message:active {
+            transform: scale(0.98);
+          }
+
+          .btn-explore-events {
+            transition: transform 0.16s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.16s ease, background-color 0.16s ease;
+          }
+          .btn-explore-events:hover {
+            transform: scale(1.02);
+            border-color: #b8964f;
+            background-color: #fbf9f4;
+          }
+          .btn-explore-events:active {
+            transform: scale(0.98);
+          }
         }
 
         @media (max-width: 899px) {
@@ -681,6 +792,7 @@ export function ContactHero() {
             width: 100% !important;
             max-width: 380px !important;
             margin-top: 1rem;
+            box-shadow: 0 4px 12px rgba(20, 32, 58, 0.04) !important;
           }
 
           .radar-card {
@@ -690,10 +802,12 @@ export function ContactHero() {
             width: 100% !important;
             max-width: 380px !important;
             margin-top: 1rem;
+            box-shadow: 0 4px 12px rgba(20, 32, 58, 0.04) !important;
           }
 
           .gold-orb {
             display: none;
+            box-shadow: 0 10px 25px rgba(184, 150, 79, 0.2) !important;
           }
 
           .gold-badge {
@@ -707,13 +821,6 @@ export function ContactHero() {
             margin-top: 1.5rem;
             text-align: center;
             justify-content: center;
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .phoneWrap {
-            animation: none !important;
-            transform: perspective(1400px) rotateX(22deg) rotateY(-42deg) rotateZ(-36deg) !important;
           }
         }
       `}</style>
