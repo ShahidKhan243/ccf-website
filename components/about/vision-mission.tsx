@@ -218,63 +218,81 @@ function BenefitItem({
 export function VisionMissionSection() {
   return (
     <section id="foundation" className="relative bg-[#F7F5EF] overflow-hidden">
-      {/* Top Background Decorative SVG Botanical Elements */}
+      {/* Top Background Decorative SVG Botanical & Gold Elements */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
-        {/* Subtle Botanical Branch (Top-Left) */}
+        {/* Delicate Editorial Botanical Branch (Top-Left) */}
         <svg
-          width="260"
-          height="280"
-          viewBox="0 0 260 280"
+          width="320"
+          height="340"
+          viewBox="0 0 320 340"
           fill="none"
-          className="absolute -top-6 -left-6 opacity-40"
+          className="absolute -top-4 -left-4 opacity-55"
         >
+          <defs>
+            <linearGradient id="leafGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#E8D8AF" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#B99746" stopOpacity="0.3" />
+            </linearGradient>
+            <linearGradient id="leafGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#F4E8C8" stopOpacity="0.7" />
+              <stop offset="100%" stopColor="#D4B87A" stopOpacity="0.35" />
+            </linearGradient>
+          </defs>
+          {/* Main Stem */}
           <path
-            d="M-20 20 C40 80 90 160 120 280"
+            d="M-30 10 C30 60 90 140 135 290"
             stroke="#B99746"
             strokeWidth="1.5"
             strokeLinecap="round"
           />
+          {/* Leaf 1 */}
           <path
-            d="M15 65 C38 48 70 58 75 84 C52 94 25 84 15 65 Z"
-            fill="#E8D8AF"
-            fillOpacity="0.45"
+            d="M10 50 C38 32 74 44 82 72 C56 82 24 70 10 50 Z"
+            fill="url(#leafGrad1)"
             stroke="#B99746"
             strokeWidth="1"
           />
+          {/* Leaf 2 */}
           <path
-            d="M45 110 C75 98 102 114 102 140 C78 150 50 134 45 110 Z"
-            fill="#E8D8AF"
-            fillOpacity="0.45"
+            d="M42 95 C78 82 110 98 112 126 C82 136 50 120 42 95 Z"
+            fill="url(#leafGrad2)"
             stroke="#B99746"
             strokeWidth="1"
           />
+          {/* Leaf 3 */}
           <path
-            d="M72 165 C106 158 128 178 124 204 C96 210 74 190 72 165 Z"
-            fill="#E8D8AF"
-            fillOpacity="0.45"
+            d="M74 150 C112 142 140 162 136 190 C104 198 78 178 74 150 Z"
+            fill="url(#leafGrad1)"
             stroke="#B99746"
             strokeWidth="1"
           />
+          {/* Leaf 4 (Inner/Secondary) */}
           <path
-            d="M12 125 C-6 145 10 170 32 165 C38 144 26 128 12 125 Z"
-            fill="#E8D8AF"
-            fillOpacity="0.35"
+            d="M15 110 C-5 130 8 160 32 155 C40 132 28 114 15 110 Z"
+            fill="url(#leafGrad2)"
+            stroke="#B99746"
+            strokeWidth="1"
+          />
+          {/* Leaf 5 */}
+          <path
+            d="M102 210 C138 205 160 225 152 250 C126 256 106 238 102 210 Z"
+            fill="url(#leafGrad1)"
             stroke="#B99746"
             strokeWidth="1"
           />
         </svg>
 
-        {/* Soft Gold Curved Accent (Top-Right) */}
+        {/* Soft Gold Ambient Rings (Top-Right) */}
         <svg
-          width="280"
-          height="280"
-          viewBox="0 0 280 280"
+          width="320"
+          height="320"
+          viewBox="0 0 320 320"
           fill="none"
-          className="absolute -top-10 -right-10 opacity-35"
+          className="absolute -top-12 -right-12 opacity-40"
         >
-          <circle cx="280" cy="0" r="180" stroke="#B99746" strokeWidth="1" strokeDasharray="5 7" />
-          <circle cx="280" cy="0" r="230" stroke="#E8D8AF" strokeWidth="1.5" />
-          <circle cx="280" cy="0" r="120" fill="#E8D8AF" fillOpacity="0.15" />
+          <circle cx="320" cy="0" r="210" stroke="#B99746" strokeWidth="1" strokeDasharray="5 8" />
+          <circle cx="320" cy="0" r="270" stroke="#E8D8AF" strokeWidth="1.5" />
+          <circle cx="320" cy="0" r="140" fill="#E8D8AF" fillOpacity="0.12" />
         </svg>
       </div>
 
@@ -318,7 +336,7 @@ export function VisionMissionSection() {
         </div>
 
         {/* 3. Key Benefits / Highlight Row (4 items) */}
-        <div className="rounded-[24px] border border-[#E5DED0] bg-white/90 p-6 sm:p-8 md:p-9 shadow-[0_4px_24px_rgba(20,38,63,0.03)] backdrop-blur-xs">
+        <div className="rounded-[24px] border border-[#E5DED0] bg-white/95 p-6 sm:p-8 md:p-9 shadow-[0_4px_24px_rgba(20,38,63,0.03)] backdrop-blur-xs">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0">
             {HIGHLIGHT_BENEFITS.map((item, idx) => (
               <BenefitItem
@@ -336,25 +354,33 @@ export function VisionMissionSection() {
         {/* Organic Curved Wave Transition at the top */}
         <div className="w-full overflow-hidden leading-none bg-[#F7F5EF]">
           <svg
-            viewBox="0 0 1440 48"
+            viewBox="0 0 1440 54"
             fill="none"
             preserveAspectRatio="none"
-            className="w-full h-8 sm:h-12 block"
+            className="w-full h-9 sm:h-14 block"
             aria-hidden="true"
           >
             <path
-              d="M0 48 C380 12 760 0 1140 24 C1280 32 1380 44 1440 48 L1440 48 L0 48 Z"
+              d="M0 54 C380 14 760 0 1140 28 C1280 36 1380 48 1440 54 L1440 54 L0 54 Z"
               fill="#101D2D"
             />
           </svg>
         </div>
 
         <div className="relative py-14 sm:py-16 md:py-20 px-6 max-w-4xl mx-auto space-y-5">
-          {/* Subtle Background Curved Gold Rings */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-15" aria-hidden="true">
-            <svg width="600" height="200" viewBox="0 0 600 200" fill="none">
-              <ellipse cx="300" cy="100" rx="280" ry="70" stroke="#B99746" strokeWidth="1" />
-              <ellipse cx="300" cy="100" rx="200" ry="50" stroke="#B99746" strokeWidth="1" strokeDasharray="4 6" />
+          {/* Subtle Background Curved Gold Rings & Flourishes */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20" aria-hidden="true">
+            <svg width="640" height="220" viewBox="0 0 640 220" fill="none">
+              <ellipse cx="320" cy="110" rx="300" ry="75" stroke="#B99746" strokeWidth="1" />
+              <ellipse cx="320" cy="110" rx="220" ry="55" stroke="#B99746" strokeWidth="1" strokeDasharray="4 6" />
+            </svg>
+          </div>
+
+          {/* Left Side Curved Wave Flourish Accent */}
+          <div className="absolute left-8 top-1/2 -translate-y-1/2 hidden lg:block pointer-events-none opacity-30" aria-hidden="true">
+            <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
+              <path d="M0 70 C40 60 70 40 110 10" stroke="#B99746" strokeWidth="1.5" strokeLinecap="round" />
+              <path d="M15 75 C50 65 75 48 115 20" stroke="#E8D8AF" strokeWidth="1" strokeDasharray="3 5" />
             </svg>
           </div>
 
@@ -374,14 +400,14 @@ export function VisionMissionSection() {
         {/* Organic Curved Wave Transition at the bottom */}
         <div className="w-full overflow-hidden leading-none bg-[#F7F5EF]">
           <svg
-            viewBox="0 0 1440 48"
+            viewBox="0 0 1440 54"
             fill="none"
             preserveAspectRatio="none"
-            className="w-full h-8 sm:h-12 block"
+            className="w-full h-9 sm:h-14 block"
             aria-hidden="true"
           >
             <path
-              d="M0 0 C360 36 720 48 1080 24 C1260 16 1380 4 1440 0 L1440 0 L0 0 Z"
+              d="M0 0 C360 40 720 54 1080 26 C1260 16 1380 6 1440 0 L1440 0 L0 0 Z"
               fill="#101D2D"
             />
           </svg>
