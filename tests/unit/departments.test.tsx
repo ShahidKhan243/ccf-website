@@ -39,11 +39,11 @@ describe("Departments Page Data & Components (Phase 5 Task 3)", () => {
   ];
 
   const VERIFIED_DEPARTMENT_NAMES = [
-    "Finance Management",
-    "IT & Media",
-    "Marketing & PR",
-    "Project Department",
-    "Event Management",
+    "Events",
+    "Media & Design",
+    "Communications",
+    "Finance",
+    "Operations",
   ];
 
   const FAKE_DEPARTMENTS = [

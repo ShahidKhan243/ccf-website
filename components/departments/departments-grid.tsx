@@ -54,25 +54,44 @@ export function DepartmentsGrid({
     }, 600);
   };
 
-  // Determine departments to display
+  // Determine departments to display with alias matching
+  const SLUG_ALIASES: Record<string, string> = {
+    "event-management": "events",
+    "events": "events",
+    "it-media": "media-design",
+    "media-design": "media-design",
+    "marketing-pr": "communications",
+    "communications": "communications",
+    "finance-management": "finance",
+    "finance": "finance",
+    "project-department": "operations",
+    "operations": "operations",
+  };
+
   const deptsToDisplay =
     departments && departments.length > 0
       ? departments.map((dept, index) => {
-          const fallback = CCF_DEPARTMENTS.find(
-            (d) => d.slug === dept.slug || d.name.toLowerCase() === dept.name.toLowerCase()
-          ) || CCF_DEPARTMENTS[index % CCF_DEPARTMENTS.length];
+          const canonicalSlug = SLUG_ALIASES[dept.slug] || dept.slug;
+          const fallback =
+            CCF_DEPARTMENTS.find(
+              (d) =>
+                d.slug === canonicalSlug ||
+                d.slug === dept.slug ||
+                d.name.toLowerCase() === dept.name.toLowerCase()
+            ) || CCF_DEPARTMENTS[index % CCF_DEPARTMENTS.length];
 
           return {
             id: dept.id || fallback.id,
             slug: dept.slug || fallback.slug,
+            canonicalSlug,
             name: dept.name || fallback.name,
             description: dept.description || fallback.description,
-            tags: dept.tags || fallback.tags,
+            tags: dept.tags && dept.tags.length > 0 ? dept.tags : fallback.tags,
             lead: dept.lead || fallback.lead,
             iconName: dept.iconName || fallback.iconName,
           };
         })
-      : CCF_DEPARTMENTS;
+      : CCF_DEPARTMENTS.map((d) => ({ ...d, canonicalSlug: d.slug }));
 
   // 1. Loading Skeleton State (5 cards, no "Loading..." text)
   if (isLoading) {
@@ -185,7 +204,7 @@ export function DepartmentsGrid({
               5 Departments
             </div>
             <p className="text-[#5d6985] text-base md:text-lg leading-relaxed lg:text-right">
-              Five departments cover finance, IT and media, marketing, projects and events. Pick the one that matches your strengths, or try more than one.
+              Five departments cover events, media, communications and finances. Pick the one that matches your strengths, or try more than one.
             </p>
             <Link
               href="/join-us"
@@ -200,9 +219,9 @@ export function DepartmentsGrid({
         {/* 6-Column Grid: Row 1 = 3 cards (span 2 each); Row 2 = 2 cards (span 3 each) */}
         <div className="grid grid-cols-1 md:grid-cols-6 gap-6 lg:gap-8">
           {deptsToDisplay.map((dept, index) => {
-            const isHighlight = index === 0; // Card 01: Finance Management
+            const isHighlight = index === 0; // Card 01: Events (Highlight card)
             const stepNum = String(index + 1).padStart(2, "0");
-            const IconComp = DEPT_ICONS[dept.iconName] || TrendingUp;
+            const IconComp = DEPT_ICONS[dept.iconName || ""] || TrendingUp;
 
             // Row 1 (first 3): col-span-2; Row 2 (last 2): col-span-3
             const gridColClass =
@@ -221,7 +240,7 @@ export function DepartmentsGrid({
                     : "border border-[#e8dfca] bg-white text-[#14203a] shadow-[0_10px_30px_rgba(184,150,79,0.08)] hover:shadow-xl hover:border-[#b8964f]/50"
                 }`}
                 style={{
-                  minHeight: index < 3 ? "470px" : "420px",
+                  minHeight: index < 3 ? "450px" : "420px",
                   background: isHighlight
                     ? "linear-gradient(145deg, #1d2c4d 0%, #0f1830 100%)"
                     : "#ffffff",
@@ -256,7 +275,7 @@ export function DepartmentsGrid({
                     {/* Department Name & Description */}
                     <div className="space-y-3">
                       <h3
-                        className={`font-serif text-2xl sm:text-[34px] font-bold leading-tight truncate ${
+                        className={`font-serif text-3xl sm:text-[38px] font-bold leading-tight truncate ${
                           isHighlight ? "text-white" : "text-[#14203a]"
                         }`}
                         style={{ fontFeatureSettings: '"lnum" 1' }}

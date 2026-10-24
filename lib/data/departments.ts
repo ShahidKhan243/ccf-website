@@ -18,61 +18,9 @@ export interface CcfDepartment {
  */
 export const CCF_DEPARTMENTS: readonly CcfDepartment[] = [
   {
-    id: "dept-finance",
-    slug: "finance-management",
-    name: "Finance Management",
-    shortDescription:
-      "Manages the club's budgets, sponsorships and accounts, and shares money-management learning with members.",
-    description:
-      "Manages the club's budgets, sponsorships and accounts, and shares money-management learning with members.",
-    focusAreas: ["Budgeting", "Sponsors", "Research"],
-    tags: ["Budgeting", "Sponsors", "Research"],
-    lead: "Lead · TBA",
-    iconName: "TrendingUp",
-  },
-  {
-    id: "dept-it-media",
-    slug: "it-media",
-    name: "IT & Media",
-    shortDescription:
-      "Runs the website and digital tools, plus photography, video and design for the club.",
-    description:
-      "Runs the website and digital tools, plus photography, video and design for the club.",
-    focusAreas: ["Web", "Design", "Video"],
-    tags: ["Web", "Design", "Video"],
-    lead: "Lead · TBA",
-    iconName: "Monitor",
-  },
-  {
-    id: "dept-marketing",
-    slug: "marketing-pr",
-    name: "Marketing & PR",
-    shortDescription:
-      "Social media, outreach and partnerships that spread the word about CCF.",
-    description:
-      "Social media, outreach and partnerships that spread the word about CCF.",
-    focusAreas: ["Social", "Outreach", "Partners"],
-    tags: ["Social", "Outreach", "Partners"],
-    lead: "Lead · TBA",
-    iconName: "Megaphone",
-  },
-  {
-    id: "dept-projects",
-    slug: "project-department",
-    name: "Project Department",
-    shortDescription:
-      "Plans and delivers student-led finance projects, from first idea to launch.",
-    description:
-      "Plans and delivers student-led finance projects, from first idea to launch.",
-    focusAreas: ["Planning", "Research", "Delivery"],
-    tags: ["Planning", "Research", "Delivery"],
-    lead: "Lead · TBA",
-    iconName: "FolderKanban",
-  },
-  {
     id: "dept-events",
-    slug: "event-management",
-    name: "Event Management",
+    slug: "events",
+    name: "Events",
     shortDescription:
       "Plans and runs symposiums, quizzes, workshops and investment events.",
     description:
@@ -81,6 +29,58 @@ export const CCF_DEPARTMENTS: readonly CcfDepartment[] = [
     tags: ["Symposiums", "Quizzes", "Logistics"],
     lead: "Lead · TBA",
     iconName: "CalendarDays",
+  },
+  {
+    id: "dept-media-design",
+    slug: "media-design",
+    name: "Media & Design",
+    shortDescription:
+      "Posters, photography, video and the club's visual identity.",
+    description:
+      "Posters, photography, video and the club's visual identity.",
+    focusAreas: ["Design", "Photo", "Video"],
+    tags: ["Design", "Photo", "Video"],
+    lead: "Lead · TBA",
+    iconName: "Monitor",
+  },
+  {
+    id: "dept-communications",
+    slug: "communications",
+    name: "Communications",
+    shortDescription:
+      "Social media, outreach, partnerships and keeping members informed.",
+    description:
+      "Social media, outreach, partnerships and keeping members informed.",
+    focusAreas: ["Social", "Outreach", "PR"],
+    tags: ["Social", "Outreach", "PR"],
+    lead: "Lead · TBA",
+    iconName: "Megaphone",
+  },
+  {
+    id: "dept-finance",
+    slug: "finance",
+    name: "Finance",
+    shortDescription:
+      "Budgets, sponsorships and the club's own accounts, plus market research content for members.",
+    description:
+      "Budgets, sponsorships and the club's own accounts, plus market research content for members.",
+    focusAreas: ["Budgeting", "Sponsors", "Research"],
+    tags: ["Budgeting", "Sponsors", "Research"],
+    lead: "Lead · TBA",
+    iconName: "TrendingUp",
+  },
+  {
+    id: "dept-operations",
+    slug: "operations",
+    name: "Operations",
+    shortDescription:
+      "Membership, recruitment, scheduling and day-to-day coordination across the club.",
+    description:
+      "Membership, recruitment, scheduling and day-to-day coordination across the club.",
+    focusAreas: ["Recruitment", "Scheduling", "Coordination"],
+    tags: ["Recruitment", "Scheduling", "Coordination"],
+    lead: "Lead · TBA",
+    iconName: "FolderKanban",
   },
 ] as const;
 

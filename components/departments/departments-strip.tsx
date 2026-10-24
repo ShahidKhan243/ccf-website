@@ -8,11 +8,10 @@ interface StripPill {
 }
 
 const STRIP_PILLS: readonly StripPill[] = [
-  { label: "FINANCE", icon: TrendingUp },
-  { label: "IT & MEDIA", icon: Monitor },
-  { label: "MARKETING", icon: Megaphone },
-  { label: "PROJECTS", icon: ClipboardCheck },
   { label: "EVENTS", icon: Calendar },
+  { label: "MEDIA", icon: Monitor },
+  { label: "COMMS", icon: Megaphone },
+  { label: "FINANCE", icon: TrendingUp },
 ];
 
 export function DepartmentsStrip() {
@@ -21,7 +20,7 @@ export function DepartmentsStrip() {
       <h2 className="sr-only">Club Departments Overview</h2>
       <Container>
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-          {/* Left Side: Label & 5 Badges */}
+          {/* Left Side: Label & 4 Badges */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 w-full lg:w-auto">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#5d6985] shrink-0">
               Covering every side of the club
@@ -50,25 +49,25 @@ export function DepartmentsStrip() {
 
           {/* Right Side: Overlapping Avatars & Headline */}
           <div className="flex items-center gap-4 shrink-0 pt-2 lg:pt-0 border-t lg:border-t-0 border-[#e8dfca]/60 w-full lg:w-auto justify-between lg:justify-end">
-            {/* 3 Overlapping Circular Avatars */}
+            {/* 3 Overlapping Circular Avatars: E, M, C */}
             <div className="flex -space-x-2.5 items-center shrink-0">
               <div
                 className="w-10 h-10 rounded-full border-2 border-[#f1e9d6] bg-[#14203a] text-white flex items-center justify-center font-serif text-sm font-bold shadow-sm"
-                title="Student Member"
+                title="Events Student Member"
               >
-                FM
+                E
               </div>
               <div
                 className="w-10 h-10 rounded-full border-2 border-[#f1e9d6] bg-[#b8964f] text-white flex items-center justify-center font-serif text-sm font-bold shadow-sm"
-                title="Student Member"
+                title="Media Student Member"
               >
-                IT
+                M
               </div>
               <div
                 className="w-10 h-10 rounded-full border-2 border-[#f1e9d6] bg-[#e6cf98] text-[#14203a] flex items-center justify-center font-serif text-sm font-bold shadow-sm"
-                title="Student Member"
+                title="Comms Student Member"
               >
-                MP
+                C
               </div>
             </div>
 

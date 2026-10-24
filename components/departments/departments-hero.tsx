@@ -135,11 +135,30 @@ export function DepartmentsHero() {
 
             {/* Supporting Editorial Paragraph */}
             <p className="text-[#5d6985] text-lg sm:text-xl lg:text-[21px] leading-relaxed max-w-xl font-normal">
-              Finance, IT and media, marketing, projects and events. Every department at CCF is run by students, open to every discipline.
+              Events, media, communications and finance. Every department at CCF is run by students, open to every discipline.
             </p>
 
-            {/* Actions & Playful Gold Arrow */}
+            {/* Actions & Playful Gold Arrow & Sparkle Stars */}
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-5 w-full sm:w-auto relative">
+              {/* Optional Decoration: Thin gold outlined 4-point sparkle star #1 */}
+              <div
+                className="hidden sm:block absolute -left-8 -top-5 text-[#b8964f] pointer-events-none select-none"
+                aria-hidden="true"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#b8964f"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5Z" />
+                </svg>
+              </div>
+
               {/* Primary Gold Button */}
               <Link
                 href="/join-us"
@@ -162,9 +181,28 @@ export function DepartmentsHero() {
                 <ArrowDown className="h-4 w-4 text-[#b8964f] transition-transform group-hover:translate-y-0.5" aria-hidden="true" />
               </a>
 
+              {/* Optional Decoration: Thin gold outlined 4-point sparkle star #2 */}
+              <div
+                className="hidden xl:block absolute -right-32 top-8 text-[#b8964f] pointer-events-none select-none"
+                aria-hidden="true"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#b8964f"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5Z" />
+                </svg>
+              </div>
+
               {/* Hand-drawn gold curved arrow (accent) */}
               <div
-                className="hidden xl:block absolute -right-28 -top-3 text-[#b8964f] pointer-events-none select-none"
+                className="hidden xl:block absolute -right-24 -top-3 text-[#b8964f] pointer-events-none select-none"
                 aria-hidden="true"
               >
                 <svg
@@ -187,15 +225,12 @@ export function DepartmentsHero() {
           {/* Right Column (Visual Stage) */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end relative mt-8 lg:mt-0">
             {/* Visual Container scaled responsively under 900px */}
-            <div className="relative w-[340px] h-[360px] sm:w-[460px] sm:h-[420px] lg:w-[500px] lg:h-[460px] flex items-center justify-center scale-[0.75] sm:scale-90 lg:scale-100 origin-center lg:origin-right transition-transform">
+            <div className="relative w-[340px] h-[360px] sm:w-[460px] sm:h-[420px] lg:w-[500px] lg:h-[460px] flex items-center justify-center scale-[0.70] sm:scale-90 lg:scale-100 origin-center lg:origin-right transition-transform">
               {/* Metallic Gold Crescent (Inline SVG) */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
                 <svg
                   viewBox="0 0 500 500"
-                  className="w-[420px] h-[420px] sm:w-[480px] sm:h-[480px]"
-                  style={{
-                    filter: "drop-shadow(0 24px 36px rgba(184, 150, 79, 0.28))",
-                  }}
+                  className="w-[420px] h-[420px] sm:w-[480px] sm:h-[480px] sm:[filter:drop-shadow(0_24px_36px_rgba(184,150,79,0.28))]"
                   aria-hidden="true"
                 >
                   <defs>
@@ -227,7 +262,7 @@ export function DepartmentsHero() {
                 </svg>
               </div>
 
-              {/* Back Card: IT & Media (Dept 02) */}
+              {/* Back Card: Media & Design (Dept 02) */}
               <div
                 className={`absolute w-[360px] sm:w-[390px] h-[235px] sm:h-[250px] rounded-[24px] overflow-hidden border border-[#e8dfca] shadow-xl anim-float-back ${
                   isPaused ? "anim-paused" : ""
@@ -245,13 +280,13 @@ export function DepartmentsHero() {
                     CCF
                   </span>
                   <span className="font-mono text-[10px] sm:text-xs tracking-wider text-[#9c7c38] font-bold">
-                    IT & MEDIA · Dept. 02
+                    MEDIA & DESIGN · Dept. 02
                   </span>
                 </div>
                 {/* Bottom: Gold Strip */}
                 <div className="h-[56%] bg-gradient-to-br from-[#d4b06a] to-[#a8843c] px-6 py-4 flex flex-col justify-between text-white">
                   <div className="text-xs uppercase tracking-widest opacity-90 font-medium">
-                    Digital & Creative Operations
+                    Creative & Visual Identity
                   </div>
                   <div className="flex items-center justify-between text-[11px] font-mono tracking-wider opacity-85">
                     <span>CRESCENT CLUB OF FINANCE</span>
@@ -260,7 +295,7 @@ export function DepartmentsHero() {
                 </div>
               </div>
 
-              {/* Front Card: Finance Management (Dept 01) */}
+              {/* Front Card: Events Department (Dept 01) */}
               <div
                 className={`absolute w-[380px] sm:w-[420px] h-[245px] sm:h-[262px] rounded-[26px] overflow-hidden border border-[#b8964f]/40 shadow-2xl anim-float-front ${
                   isPaused ? "anim-paused" : ""
@@ -285,7 +320,7 @@ export function DepartmentsHero() {
                     CCF
                   </span>
                   <span className="font-mono text-xs font-bold tracking-wider text-[#14203a] bg-white/30 px-2.5 py-1 rounded-sm border border-white/40">
-                    DEPT 01 / FINANCE
+                    DEPT 01 / EVENTS
                   </span>
                 </div>
 
@@ -303,7 +338,7 @@ export function DepartmentsHero() {
                       className="font-serif text-2xl sm:text-[26px] font-bold text-white tracking-tight leading-none"
                       style={{ fontFeatureSettings: '"lnum" 1' }}
                     >
-                      Finance Management
+                      Events Department
                     </h3>
                     <p className="text-[10px] uppercase font-bold tracking-[0.22em] text-[#e6cf98]/90 mt-1.5">
                       CRESCENT CLUB OF FINANCE

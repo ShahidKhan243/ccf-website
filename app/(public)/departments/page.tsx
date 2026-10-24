@@ -63,9 +63,18 @@ export default function DepartmentsPage() {
         if (dbDepts && dbDepts.length > 0) {
           // Maintain canonical 5 departments order matching navbar
           const canonicalSlugs = CCF_DEPARTMENTS.map((d) => d.slug);
+          const slugAliases: Record<string, string> = {
+            "event-management": "events",
+            "it-media": "media-design",
+            "marketing-pr": "communications",
+            "finance-management": "finance",
+            "project-department": "operations",
+          };
           departments = [...dbDepts].sort((a, b) => {
-            const idxA = canonicalSlugs.indexOf(a.slug);
-            const idxB = canonicalSlugs.indexOf(b.slug);
+            const slugA = slugAliases[a.slug] || a.slug;
+            const slugB = slugAliases[b.slug] || b.slug;
+            const idxA = canonicalSlugs.indexOf(slugA);
+            const idxB = canonicalSlugs.indexOf(slugB);
             if (idxA !== -1 && idxB !== -1) return idxA - idxB;
             return a.name.localeCompare(b.name);
           });
