@@ -220,5 +220,31 @@ describe("About Page Data & Components Redesign", () => {
       expect(html).toContain('href="/join-us"');
       expect(html).toContain("Join Us");
     });
+
+    it("renders complete AboutPage with all 5 core sections", async () => {
+      const AboutPage = (await import("@/app/(public)/about/page")).default;
+      const html = renderToStaticMarkup(<AboutPage />);
+
+      // 1. Hero
+      expect(html).toContain("More Than a Club,");
+      expect(html).toContain("campus-hero-sunset-2k.webp");
+      expect(html).toContain("Finance Builds Better Futures");
+
+      // 2. Story
+      expect(html).toContain("OUR STORY");
+      expect(html).toContain("story-finance.jpg");
+
+      // 3. Vision & Mission
+      expect(html).toContain("Guided by Principles, Driven by Purpose.");
+      expect(html).toContain("Our Mission");
+
+      // 4. What We Do
+      expect(html).toContain("Creating Opportunities. Building Skills.");
+      expect(html).toContain("campus-panorama.png");
+
+      // 5. Join Our Journey
+      expect(html).toContain("JOIN OUR JOURNEY");
+      expect(html).toContain("Be a Part of Something Bigger.");
+    });
   });
 });

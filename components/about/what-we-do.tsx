@@ -13,7 +13,6 @@ import {
   MapPin,
 } from "lucide-react";
 import { Container } from "@/components/site/container";
-import { FadeIn } from "@/components/motion/fade-in";
 import { ABOUT_WHAT_WE_DO } from "@/lib/data/about";
 
 const ICONS = {
@@ -32,7 +31,7 @@ export function WhatCCFDoes() {
           {/* COLUMN 1 (LEFT): Heading, Paragraph & Explore Events CTA  */}
           {/* ========================================================= */}
           <div className="lg:col-span-4 space-y-6 text-left">
-            <FadeIn direction="right">
+            <div>
               {/* Gold Eyebrow */}
               <div className="flex items-center gap-3">
                 <span className="text-xs font-bold tracking-[0.2em] text-[#B69A58] uppercase">
@@ -65,31 +64,32 @@ export function WhatCCFDoes() {
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </Link>
               </div>
-            </FadeIn>
+            </div>
           </div>
 
           {/* ========================================================= */}
           {/* COLUMN 2 (CENTER): Four Clean Activity Cards (2x2 Grid)   */}
           {/* ========================================================= */}
           <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {ABOUT_WHAT_WE_DO.cards.map((card, idx) => {
+            {ABOUT_WHAT_WE_DO.cards.map((card) => {
               const Icon = ICONS[card.icon as keyof typeof ICONS] || GraduationCap;
               return (
-                <FadeIn key={card.id} direction="up" delay={idx * 0.1}>
-                  <div className="group h-full rounded-2xl border border-[#E2DDD1] bg-white p-5 sm:p-6 space-y-3.5 shadow-xs transition-all duration-300 hover:border-[#B69A58]/80 hover:shadow-md hover:-translate-y-1">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#B69A58]/30 bg-[#F7F5EF] text-[#B69A58] group-hover:bg-[#B69A58] group-hover:text-white transition-colors duration-300">
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </div>
-
-                    <h3 className="font-serif text-lg font-bold text-[#14243A] leading-snug">
-                      {card.title}
-                    </h3>
-
-                    <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed">
-                      {card.description}
-                    </p>
+                <div
+                  key={card.id}
+                  className="group h-full rounded-2xl border border-[#E2DDD1] bg-white p-5 sm:p-6 space-y-3.5 shadow-xs transition-all duration-300 hover:border-[#B69A58]/80 hover:shadow-md hover:-translate-y-1"
+                >
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#B69A58]/30 bg-[#F7F5EF] text-[#B69A58] group-hover:bg-[#B69A58] group-hover:text-white transition-colors duration-300">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
                   </div>
-                </FadeIn>
+
+                  <h3 className="font-serif text-lg font-bold text-[#14243A] leading-snug">
+                    {card.title}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed">
+                    {card.description}
+                  </p>
+                </div>
               );
             })}
           </div>
@@ -98,36 +98,34 @@ export function WhatCCFDoes() {
           {/* COLUMN 3 (RIGHT): Authentic Crescent Campus Photograph    */}
           {/* ========================================================= */}
           <div className="lg:col-span-3 space-y-4">
-            <FadeIn direction="left">
-              <div className="relative group">
-                <div className="relative aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4] rounded-2xl overflow-hidden border-2 border-white bg-[#14243A] shadow-[0_16px_36px_rgba(20,36,58,0.12)]">
-                  <Image
-                    src="/images/campus-panorama.png"
-                    alt="Crescent College Campus Aerial Panorama"
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 25vw, 360px"
-                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
+            <div className="relative group">
+              <div className="relative aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4] rounded-2xl overflow-hidden border-2 border-white bg-[#14243A] shadow-[0_16px_36px_rgba(20,36,58,0.12)]">
+                <Image
+                  src="/images/campus-panorama.png"
+                  alt="Crescent College Campus Aerial Panorama"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 25vw, 360px"
+                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                />
 
-                  {/* Gradient Scrim */}
-                  <div
-                    className="absolute inset-0 bg-gradient-to-t from-[#0D1927]/80 via-transparent to-transparent pointer-events-none"
-                    aria-hidden="true"
-                  />
+                {/* Gradient Scrim */}
+                <div
+                  className="absolute inset-0 bg-gradient-to-t from-[#0D1927]/80 via-transparent to-transparent pointer-events-none"
+                  aria-hidden="true"
+                />
 
-                  {/* Caption badge */}
-                  <div className="absolute bottom-4 left-4 right-4 z-10 rounded-xl border border-white/20 bg-[#14243A]/90 backdrop-blur-md p-3 text-white">
-                    <div className="flex items-center gap-1.5 text-xs font-semibold text-[#B69A58] mb-0.5">
-                      <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
-                      <span>Crescent College Campus</span>
-                    </div>
-                    <p className="text-[11px] text-[#94A3B8] leading-tight">
-                      Vandalur, Chennai
-                    </p>
+                {/* Caption badge */}
+                <div className="absolute bottom-4 left-4 right-4 z-10 rounded-xl border border-white/20 bg-[#14243A]/90 backdrop-blur-md p-3 text-white">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#B69A58] mb-0.5">
+                    <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
+                    <span>Crescent College Campus</span>
                   </div>
+                  <p className="text-[11px] text-[#94A3B8] leading-tight">
+                    Vandalur, Chennai
+                  </p>
                 </div>
               </div>
-            </FadeIn>
+            </div>
           </div>
         </div>
       </Container>

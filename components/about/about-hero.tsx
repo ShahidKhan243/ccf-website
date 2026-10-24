@@ -11,7 +11,6 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Container } from "@/components/site/container";
-import { FadeIn } from "@/components/motion/fade-in";
 import { ABOUT_HERO } from "@/lib/data/about";
 
 export function AboutHero() {
@@ -57,112 +56,102 @@ export function AboutHero() {
           {/* ========================================================= */}
           <div className="lg:col-span-6 xl:col-span-6 space-y-5 lg:space-y-6 text-left z-20">
             {/* Small Gold Eyebrow: ABOUT US + Gold Line */}
-            <FadeIn direction="up">
-              <div className="flex items-center gap-3">
-                <span className="text-xs sm:text-sm font-bold tracking-[0.2em] text-[#B69A58] uppercase">
-                  {ABOUT_HERO.eyebrow}
-                </span>
-                <span
-                  className="inline-block w-14 h-[2px] bg-[#B69A58]"
-                  aria-hidden="true"
-                />
-                <span className="sr-only">Crescent Club of Finance</span>
-              </div>
-            </FadeIn>
+            <div className="flex items-center gap-3">
+              <span className="text-xs sm:text-sm font-bold tracking-[0.2em] text-[#B69A58] uppercase">
+                {ABOUT_HERO.eyebrow}
+              </span>
+              <span
+                className="inline-block w-14 h-[2px] bg-[#B69A58]"
+                aria-hidden="true"
+              />
+              <span className="sr-only">Crescent Club of Finance</span>
+            </div>
 
             {/* Main Heading: Two-line editorial serif */}
-            <FadeIn direction="up" delay={0.1}>
-              <h1 className="font-serif font-bold text-4xl sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[72px] leading-[1.05] tracking-tight">
-                <span className="text-[#14243A] block">
-                  {ABOUT_HERO.titleLine1}
-                </span>
-                <span className="text-[#B69A58] block mt-1">
-                  {ABOUT_HERO.titleLine2}
-                </span>
-              </h1>
-            </FadeIn>
+            <h1 className="font-serif font-bold text-4xl sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[72px] leading-[1.05] tracking-tight">
+              <span className="text-[#14243A] block">
+                {ABOUT_HERO.titleLine1}
+              </span>
+              <span className="text-[#B69A58] block mt-1">
+                {ABOUT_HERO.titleLine2}
+              </span>
+            </h1>
 
             {/* Supporting Paragraph */}
-            <FadeIn direction="up" delay={0.2}>
-              <p className="font-sans text-sm sm:text-base lg:text-lg text-[#64748B] leading-relaxed max-w-xl">
-                {ABOUT_HERO.subtitle}
-              </p>
-            </FadeIn>
+            <p className="font-sans text-sm sm:text-base lg:text-lg text-[#64748B] leading-relaxed max-w-xl">
+              {ABOUT_HERO.subtitle}
+            </p>
 
             {/* Three Icon-and-Text Features */}
-            <FadeIn direction="up" delay={0.3}>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-                {/* 1. Learning & Growth */}
-                <div className="group flex items-center gap-3 rounded-2xl border border-[#E2DDD1] bg-white/95 backdrop-blur-sm p-3 shadow-xs transition-all duration-300 hover:border-[#B69A58]/70 hover:shadow-md hover:-translate-y-0.5">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#B69A58]/30 bg-[#F7F5EF] text-[#B69A58] group-hover:bg-[#B69A58] group-hover:text-white transition-colors">
-                    <BookOpen className="h-5 w-5" aria-hidden="true" />
-                  </div>
-                  <div className="min-w-0">
-                    <span className="text-xs sm:text-sm font-bold text-[#14243A] block leading-tight">
-                      Learning &amp; Growth
-                    </span>
-                    <span className="text-[11px] text-[#64748B] block mt-0.5 leading-snug">
-                      Skills &amp; Literacy
-                    </span>
-                  </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+              {/* 1. Learning & Growth */}
+              <div className="group flex items-center gap-3 rounded-2xl border border-[#E2DDD1] bg-white/95 backdrop-blur-sm p-3 shadow-xs transition-all duration-300 hover:border-[#B69A58]/70 hover:shadow-md hover:-translate-y-0.5">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#B69A58]/30 bg-[#F7F5EF] text-[#B69A58] group-hover:bg-[#B69A58] group-hover:text-white transition-colors">
+                  <BookOpen className="h-5 w-5" aria-hidden="true" />
                 </div>
-
-                {/* 2. Networking & Collaboration */}
-                <div className="group flex items-center gap-3 rounded-2xl border border-[#E2DDD1] bg-white/95 backdrop-blur-sm p-3 shadow-xs transition-all duration-300 hover:border-[#B69A58]/70 hover:shadow-md hover:-translate-y-0.5">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#B69A58]/30 bg-[#F7F5EF] text-[#B69A58] group-hover:bg-[#B69A58] group-hover:text-white transition-colors">
-                    <Users className="h-5 w-5" aria-hidden="true" />
-                  </div>
-                  <div className="min-w-0">
-                    <span className="text-xs sm:text-sm font-bold text-[#14243A] block leading-tight">
-                      Networking
-                    </span>
-                    <span className="text-[11px] text-[#64748B] block mt-0.5 leading-snug">
-                      Collaboration
-                    </span>
-                  </div>
-                </div>
-
-                {/* 3. Real-World Exposure */}
-                <div className="group flex items-center gap-3 rounded-2xl border border-[#E2DDD1] bg-white/95 backdrop-blur-sm p-3 shadow-xs transition-all duration-300 hover:border-[#B69A58]/70 hover:shadow-md hover:-translate-y-0.5">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#B69A58]/30 bg-[#F7F5EF] text-[#B69A58] group-hover:bg-[#B69A58] group-hover:text-white transition-colors">
-                    <TrendingUp className="h-5 w-5" aria-hidden="true" />
-                  </div>
-                  <div className="min-w-0">
-                    <span className="text-xs sm:text-sm font-bold text-[#14243A] block leading-tight">
-                      Real-World
-                    </span>
-                    <span className="text-[11px] text-[#64748B] block mt-0.5 leading-snug">
-                      Market Exposure
-                    </span>
-                  </div>
+                <div className="min-w-0">
+                  <span className="text-xs sm:text-sm font-bold text-[#14243A] block leading-tight">
+                    Learning &amp; Growth
+                  </span>
+                  <span className="text-[11px] text-[#64748B] block mt-0.5 leading-snug">
+                    Skills &amp; Literacy
+                  </span>
                 </div>
               </div>
-            </FadeIn>
+
+              {/* 2. Networking & Collaboration */}
+              <div className="group flex items-center gap-3 rounded-2xl border border-[#E2DDD1] bg-white/95 backdrop-blur-sm p-3 shadow-xs transition-all duration-300 hover:border-[#B69A58]/70 hover:shadow-md hover:-translate-y-0.5">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#B69A58]/30 bg-[#F7F5EF] text-[#B69A58] group-hover:bg-[#B69A58] group-hover:text-white transition-colors">
+                  <Users className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <div className="min-w-0">
+                  <span className="text-xs sm:text-sm font-bold text-[#14243A] block leading-tight">
+                    Networking &amp; Collaboration
+                  </span>
+                  <span className="text-[11px] text-[#64748B] block mt-0.5 leading-snug">
+                    Interdisciplinary Community
+                  </span>
+                </div>
+              </div>
+
+              {/* 3. Real-World Exposure */}
+              <div className="group flex items-center gap-3 rounded-2xl border border-[#E2DDD1] bg-white/95 backdrop-blur-sm p-3 shadow-xs transition-all duration-300 hover:border-[#B69A58]/70 hover:shadow-md hover:-translate-y-0.5">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#B69A58]/30 bg-[#F7F5EF] text-[#B69A58] group-hover:bg-[#B69A58] group-hover:text-white transition-colors">
+                  <TrendingUp className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <div className="min-w-0">
+                  <span className="text-xs sm:text-sm font-bold text-[#14243A] block leading-tight">
+                    Real-World Exposure
+                  </span>
+                  <span className="text-[11px] text-[#64748B] block mt-0.5 leading-snug">
+                    Market Applications
+                  </span>
+                </div>
+              </div>
+            </div>
 
             {/* Action Buttons */}
-            <FadeIn direction="up" delay={0.4}>
-              <div className="flex flex-wrap items-center gap-3.5 pt-2">
-                <Link
-                  href="/events"
-                  className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 rounded-full font-bold text-sm text-[#14243A] shadow-md transition-all duration-200 hover:scale-[1.02] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B69A58]"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, #e6cf98 0%, #b8964f 55%, #9c7c38 100%)",
-                  }}
-                >
-                  <span>Explore Academic Events</span>
-                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                </Link>
+            <div className="flex flex-wrap items-center gap-3.5 pt-2">
+              <Link
+                href="/events"
+                className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 rounded-full font-bold text-sm text-[#14243A] shadow-md transition-all duration-200 hover:scale-[1.02] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B69A58]"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #e6cf98 0%, #b8964f 55%, #9c7c38 100%)",
+                }}
+              >
+                <span>Explore Academic Events</span>
+                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </Link>
 
-                <Link
-                  href="/join-us"
-                  className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 rounded-full font-semibold text-sm text-[#14243A] bg-white border border-[#E2DDD1] shadow-xs transition-all duration-200 hover:border-[#B69A58] hover:bg-[#F7F5EF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B69A58]"
-                >
-                  <span>Join CCF</span>
-                  <span aria-hidden="true">→</span>
-                </Link>
-              </div>
-            </FadeIn>
+              <Link
+                href="/join-us"
+                className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 rounded-full font-semibold text-sm text-[#14243A] bg-white border border-[#E2DDD1] shadow-xs transition-all duration-200 hover:border-[#B69A58] hover:bg-[#F7F5EF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B69A58]"
+              >
+                <span>Join CCF</span>
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
           </div>
 
           {/* ========================================================= */}

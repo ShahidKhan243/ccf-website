@@ -312,13 +312,13 @@ export function VisionMissionSection() {
             <span className="w-10 h-[1px] bg-[#B99746]" aria-hidden="true" />
           </div>
 
-          {/* Main Display Heading (H1 for page) */}
-          <h1
+          {/* Main Section Heading (H2) */}
+          <h2
             className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-bold text-[#14263F] leading-[1.08] tracking-tight"
             style={{ fontFeatureSettings: '"lnum" 1' }}
           >
             Guided by Principles, Driven by Purpose.
-          </h1>
+          </h2>
 
           {/* Supporting Text */}
           <p className="text-[#58708D] text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
@@ -351,71 +351,6 @@ export function VisionMissionSection() {
           </div>
         </div>
       </Container>
-
-      {/* 5. Full-Width Deep Navy Closing Section */}
-      <div className="w-full bg-[#101D2D] relative overflow-hidden text-center text-white">
-        {/* Organic Curved Wave Transition at the top */}
-        <div className="w-full overflow-hidden leading-none bg-[#F7F5EF]">
-          <svg
-            viewBox="0 0 1440 54"
-            fill="none"
-            preserveAspectRatio="none"
-            className="w-full h-9 sm:h-14 block"
-            aria-hidden="true"
-          >
-            <path
-              d="M0 54 C380 14 760 0 1140 28 C1280 36 1380 48 1440 54 L1440 54 L0 54 Z"
-              fill="#101D2D"
-            />
-          </svg>
-        </div>
-
-        <div className="relative py-16 sm:py-20 md:py-24 px-6 max-w-4xl mx-auto space-y-6">
-          {/* Subtle Background Curved Gold Rings & Flourishes */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20" aria-hidden="true">
-            <svg width="640" height="220" viewBox="0 0 640 220" fill="none">
-              <ellipse cx="320" cy="110" rx="300" ry="75" stroke="#B99746" strokeWidth="1" />
-              <ellipse cx="320" cy="110" rx="220" ry="55" stroke="#B99746" strokeWidth="1" strokeDasharray="4 6" />
-            </svg>
-          </div>
-
-          {/* Left Side Curved Wave Flourish Accent */}
-          <div className="absolute left-8 top-1/2 -translate-y-1/2 hidden lg:block pointer-events-none opacity-30" aria-hidden="true">
-            <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
-              <path d="M0 70 C40 60 70 40 110 10" stroke="#B99746" strokeWidth="1.5" strokeLinecap="round" />
-              <path d="M15 75 C50 65 75 48 115 20" stroke="#E8D8AF" strokeWidth="1" strokeDasharray="3 5" />
-            </svg>
-          </div>
-
-          {/* Closing Quote */}
-          <blockquote className="relative z-10 font-serif italic text-2xl sm:text-3xl md:text-4xl text-white/95 tracking-tight font-normal leading-snug">
-            &ldquo;Better financial minds. A brighter future.&rdquo;
-          </blockquote>
-
-          {/* Uppercase Gold Foundation Tagline */}
-          <div className="relative z-10 inline-flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-[#B99746] font-bold">
-            <span className="w-10 h-[1px] bg-[#B99746]/70" aria-hidden="true" />
-            <span>CCF FOUNDATION</span>
-            <span className="w-10 h-[1px] bg-[#B99746]/70" aria-hidden="true" />
-          </div>
-        </div>
-
-        {/* Organic Curved Wave Transition at the bottom */}
-        <div className="w-full overflow-hidden leading-none bg-[#F7F5EF]">
-          <svg
-            viewBox="0 0 1440 54"
-            fill="none"
-            preserveAspectRatio="none"
-            className="w-full h-9 sm:h-14 block"
-            aria-hidden="true"
-          >
-            <path
-              d="M0 0 C360 40 720 54 1080 26 C1260 16 1380 6 1440 0 L1440 0 L0 0 Z"
-              fill="#101D2D"
-            />
-          </svg>
-        </div>
-      </div>
     </section>
   );
 }
