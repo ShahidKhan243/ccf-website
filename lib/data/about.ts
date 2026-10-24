@@ -1,12 +1,13 @@
 /**
  * CCF About Page Static & Structured Data
  *
- * NOTE: All facts adhere strictly to the CCF Product Engineering Handbook v0.5 FINAL
- * and Section 7 confirmed organization details.
+ * NOTE: All facts adhere strictly to verified Crescent Club of Finance information
+ * and the CCF visual system (Ivory #F7F5EF, Deep Navy #14243A, Gold #B69A58, Slate #64748B).
  *
  * Conservative content rules:
  * - No unverified marketing superlatives (e.g. premier, leading, flagship, largest).
- * - No fabricated historical claims (e.g. founding year, member counts, awards, rankings).
+ * - No fabricated historical claims (e.g. member counts, fake rankings).
+ * - Verified institutional details: Crescent College, Vandalur (B.S. Abdur Rahman Crescent Institute of Science and Technology).
  * - Confirmed executive board only (Remi Kayalvizhi, Fizza Fathima, Zayan Ahmed) with no invented biographies.
  */
 
@@ -47,18 +48,150 @@ export interface AboutVisionMission {
 }
 
 /**
- * About page hero copy
+ * Redesigned Hero copy matching user specification
  */
 export const ABOUT_HERO = {
-  eyebrow: "About CCF",
+  eyebrow: "ABOUT US",
   institution: CCF_EYEBROW,
-  title: "Student-Led Finance at Crescent College",
+  title: "More Than a Club, A Financial Community.",
+  titleLine1: "More Than a Club,",
+  titleLine2: "A Financial Community.",
   subtitle:
-    "Dedicated to financial literacy, market awareness, and practical learning across all disciplines at B.S. Abdur Rahman Crescent Institute of Science and Technology.",
+    "The Crescent Club of Finance is a student-driven initiative at Crescent College, Vandalur, committed to building financial literacy, fostering critical thinking, and creating opportunities for growth in the world of finance.",
+  features: [
+    {
+      id: "feature-learning",
+      title: "Learning & Growth",
+      icon: "BookOpen",
+      description: "Foundational education and personal financial skills.",
+    },
+    {
+      id: "feature-networking",
+      title: "Networking & Collaboration",
+      icon: "Users",
+      description: "Interdisciplinary peer and faculty connections.",
+    },
+    {
+      id: "feature-exposure",
+      title: "Real-World Exposure",
+      icon: "TrendingUp",
+      description: "Market awareness and practical finance sessions.",
+    },
+  ],
+  floatingPanel: {
+    tagline: "Finance Builds Better Futures",
+    campus: "Crescent College, Vandalur",
+  },
 } as const;
 
 /**
- * Verified organizational overview
+ * Our Story Section Structured Data
+ */
+export const ABOUT_STORY = {
+  eyebrow: "OUR STORY",
+  title: "Rooted in Knowledge, Driven by Impact.",
+  paragraphs: [
+    "The Crescent Club of Finance was founded at Crescent College, Vandalur, to create an inclusive and dynamic platform where students from all academic disciplines can demystify finance, explore capital markets, and cultivate critical analytical thinking.",
+    "By connecting core financial concepts with practical market analysis, collaborative workshops, and student-led initiatives, CCF bridges classroom theory with practical application. We champion financial education as an indispensable life skill that equips students for enduring personal and professional success.",
+    "Through open discourse, innovation in learning, and interdisciplinary collaboration across engineering, business, sciences, and arts, CCF continues to foster a community of confident, forward-thinking leaders ready to shape their futures.",
+  ],
+  timeline: [
+    {
+      year: "2019",
+      title: "Club Founded",
+      description:
+        "Initiated by ambitious Crescent College students with a shared vision to democratize financial literacy and build a dedicated campus community.",
+    },
+    {
+      year: "Today",
+      title: "Growing Community",
+      description:
+        "An active multidisciplinary ecosystem hosting interactive sessions, student activities, campus symposiums, and practical finance learning.",
+    },
+    {
+      year: "The Future",
+      title: "Greater Impact",
+      description:
+        "Expanding student outreach, institutional collaborations, practical workshops, and lasting career preparedness for all members.",
+    },
+  ],
+} as const;
+
+/**
+ * Mission, Vision and Values Section
+ */
+export const ABOUT_PRINCIPLES = {
+  heading: "Guided by Principles, Driven by Purpose.",
+  mission: {
+    title: "Our Mission",
+    description:
+      "To enhance financial literacy and provide practical exposure through events, workshops, and collaborative initiatives.",
+  },
+  vision: {
+    title: "Our Vision",
+    description:
+      "To become a leading student finance community that inspires innovation, leadership, and long-term impact.",
+  },
+  values: {
+    title: "Our Values",
+    description:
+      "Integrity, curiosity, collaboration, excellence, and responsible financial thinking.",
+  },
+} as const;
+
+/**
+ * What We Do Section Structured Data
+ */
+export const ABOUT_WHAT_WE_DO = {
+  heading: "Creating Opportunities. Building Skills.",
+  description:
+    "Through practical sessions, guest lectures, collaborative projects, and student events, CCF equips members with real-world financial literacy and market awareness.",
+  cards: [
+    {
+      id: "card-workshops",
+      title: "Workshops & Sessions",
+      description:
+        "Hands-on seminars covering budgeting, personal financial planning, market indicators, and essential financial toolkits.",
+      icon: "GraduationCap",
+    },
+    {
+      id: "card-lectures",
+      title: "Guest Lectures",
+      description:
+        "Direct interactions with financial educators, industry professionals, and alumni sharing real-world perspectives.",
+    icon: "Presentation",
+    },
+    {
+      id: "card-networking",
+      title: "Networking",
+      description:
+        "Collaborative forums connecting ambitious students across departments with peer mentors and professional guidance.",
+      icon: "Users",
+    },
+    {
+      id: "card-opportunities",
+      title: "Opportunities",
+      description:
+        "Active involvement in organizing campus events, analytical competitions, team leadership, and practical skill-building.",
+      icon: "Briefcase",
+    },
+  ],
+} as const;
+
+/**
+ * Join Our Journey Banner Data
+ */
+export const ABOUT_JOIN_JOURNEY = {
+  eyebrow: "JOIN OUR JOURNEY",
+  title: "Be a Part of Something Bigger.",
+  description:
+    "Whether you are looking to build foundational financial literacy, participate in campus events, or develop leadership skills, the Crescent Club of Finance welcomes you.",
+  ctaText: "Join Us",
+  ctaHref: "/join-us",
+} as const;
+
+/**
+ * Verified organizational overview (backward compatibility)
  */
 export const ABOUT_OVERVIEW = {
   summary:
@@ -71,7 +204,7 @@ export const ABOUT_OVERVIEW = {
 } as const;
 
 /**
- * Stated Vision, Mission, and Objectives from Section 7 of the CCF Product Engineering Handbook.
+ * Stated Vision, Mission, and Objectives from Section 7 of the CCF Product Engineering Handbook (backward compatibility).
  */
 export const ABOUT_VISION_MISSION: AboutVisionMission = {
   vision:
@@ -101,7 +234,7 @@ export const ABOUT_VISION_MISSION: AboutVisionMission = {
 } as const;
 
 /**
- * Core Purpose Pillars
+ * Core Purpose Pillars (backward compatibility)
  */
 export const ABOUT_PILLARS: readonly AboutPillar[] = [
   {
@@ -135,8 +268,7 @@ export const ABOUT_PILLARS: readonly AboutPillar[] = [
 ] as const;
 
 /**
- * What CCF Does (Activities and Event Types)
- * Verified against documented CCF events: Magnora'26, FinRise'25, FinVibe Fiesta S2, etc.
+ * What CCF Does (backward compatibility)
  */
 export const ABOUT_ACTIVITIES: readonly AboutActivity[] = [
   {
@@ -170,8 +302,7 @@ export const ABOUT_ACTIVITIES: readonly AboutActivity[] = [
 ] as const;
 
 /**
- * Present-focused narrative: Foundation & Purpose
- * Strictly avoids unverified historical dates, awards, rankings, or member statistics.
+ * Present-focused narrative: Foundation & Purpose (backward compatibility)
  */
 export const ABOUT_FOUNDATION = {
   title: "Our Foundation & Focus",

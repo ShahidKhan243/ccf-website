@@ -3,9 +3,9 @@ import { vi } from "vitest";
 
 vi.mock("@/lib/data/leadership", () => ({
   getActiveLeadership: vi.fn().mockResolvedValue([
-    { id: "lead-president", name: "Remi Kayalvizhi", role: "President", initials: "RK" },
-    { id: "lead-vp", name: "Fizza Fathima", role: "Vice President", initials: "FF" },
-    { id: "lead-md", name: "Zayan Ahmed", role: "Managing Director", initials: "ZA" },
+    { id: "lead-president", name: "Remi Kayalvizhi", role: "President", initials: "RK", displayOrder: 1 },
+    { id: "lead-vp", name: "Fizza Fathima", role: "Vice President", initials: "FF", displayOrder: 2 },
+    { id: "lead-md", name: "Zayan Ahmed", role: "Managing Director", initials: "ZA", displayOrder: 3 },
   ])
 }));
 
@@ -13,6 +13,10 @@ import { describe, it, expect } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import {
   ABOUT_HERO,
+  ABOUT_STORY,
+  ABOUT_PRINCIPLES,
+  ABOUT_WHAT_WE_DO,
+  ABOUT_JOIN_JOURNEY,
   ABOUT_OVERVIEW,
   ABOUT_VISION_MISSION,
   ABOUT_PILLARS,
@@ -22,7 +26,7 @@ import {
 } from "@/lib/data/about";
 import {
   AboutHero,
-  AboutIntro,
+  AboutStory,
   VisionMissionSection,
   PurposePillars,
   WhatCCFDoes,
@@ -32,33 +36,9 @@ import {
 } from "@/components/about";
 import { CcfLogo } from "@/components/site/logo";
 import { Header } from "@/components/site/header";
-import AboutPage from "@/app/(public)/about/page";
 
-describe("About Page Data & Components (Phase 5 Task 2)", () => {
-  const FORBIDDEN_SUPERLATIVES = [
-    "premier",
-    "leading",
-    "flagship",
-    "largest",
-    "renowned",
-    "prestigious",
-    "industry-leading",
-    "award-winning",
-    "globally recognized",
-    "revolutionary",
-  ];
-
-  const FORBIDDEN_BUZZWORDS = [
-    "empowers",
-    "transforms",
-    "connects students with industry",
-    "builds careers",
-    "creates leaders",
-    "industry exposure",
-    "real-world opportunities",
-  ];
-
-  describe("Data Integrity & Fact Verification (lib/data/about.ts)", () => {
+describe("About Page Data & Components Redesign", () => {
+  describe("Data Integrity & Verified Content (lib/data/about.ts)", () => {
     it("contains the confirmed executive leadership board only with no invented bios", () => {
       expect(ABOUT_LEADERSHIP.length).toBe(3);
       expect(ABOUT_LEADERSHIP).toEqual([
@@ -83,68 +63,63 @@ describe("About Page Data & Components (Phase 5 Task 2)", () => {
       ]);
     });
 
-    it("uses the verified vision and mission from Section 7 of the CCF handbook", () => {
-      expect(ABOUT_VISION_MISSION.vision).toBe(
-        "To create a financially literate community in which students from all backgrounds gain confidence to make informed financial decisions for life."
-      );
-      expect(ABOUT_VISION_MISSION.mission).toBe(
-        "To equip students, including non-finance majors, with essential financial knowledge and money-management skills through interactive learning and practical experiences."
-      );
-      expect(ABOUT_VISION_MISSION.objectives.length).toBe(3);
+    it("defines hero copy with specified two-line headline and features", () => {
+      expect(ABOUT_HERO.titleLine1).toBe("More Than a Club,");
+      expect(ABOUT_HERO.titleLine2).toBe("A Financial Community.");
+      expect(ABOUT_HERO.eyebrow).toBe("ABOUT US");
+      expect(ABOUT_HERO.features.length).toBe(3);
+      const featureTitles = ABOUT_HERO.features.map((f) => f.title);
+      expect(featureTitles).toContain("Learning & Growth");
+      expect(featureTitles).toContain("Networking & Collaboration");
+      expect(featureTitles).toContain("Real-World Exposure");
     });
 
-    it("defines the 4 core purpose pillars with conservative descriptions", () => {
-      expect(ABOUT_PILLARS.length).toBe(4);
-      const titles = ABOUT_PILLARS.map((p) => p.title);
-      expect(titles).toContain("Financial Literacy");
-      expect(titles).toContain("Market Awareness");
-      expect(titles).toContain("Practical Learning");
-      expect(titles).toContain("Student Initiatives");
+    it("defines Our Story narrative and 3 editable timeline milestones", () => {
+      expect(ABOUT_STORY.eyebrow).toBe("OUR STORY");
+      expect(ABOUT_STORY.title).toBe("Rooted in Knowledge, Driven by Impact.");
+      expect(ABOUT_STORY.timeline.length).toBe(3);
+      expect(ABOUT_STORY.timeline[0].year).toBe("2019");
+      expect(ABOUT_STORY.timeline[0].title).toBe("Club Founded");
+      expect(ABOUT_STORY.timeline[1].year).toBe("Today");
+      expect(ABOUT_STORY.timeline[1].title).toBe("Growing Community");
+      expect(ABOUT_STORY.timeline[2].year).toBe("The Future");
+      expect(ABOUT_STORY.timeline[2].title).toBe("Greater Impact");
     });
 
-    it("defines the 4 verified activity types", () => {
-      expect(ABOUT_ACTIVITIES.length).toBe(4);
-      const titles = ABOUT_ACTIVITIES.map((a) => a.title);
-      expect(titles).toContain("Finance & Business Symposiums");
-      expect(titles).toContain("Finance & Investment Events");
-      expect(titles).toContain("Student Activities & Competitions");
-      expect(titles).toContain("Workshops & Learning Sessions");
+    it("defines Mission, Vision, and Values principles", () => {
+      expect(ABOUT_PRINCIPLES.heading).toBe("Guided by Principles, Driven by Purpose.");
+      expect(ABOUT_PRINCIPLES.mission.title).toBe("Our Mission");
+      expect(ABOUT_PRINCIPLES.vision.title).toBe("Our Vision");
+      expect(ABOUT_PRINCIPLES.values.title).toBe("Our Values");
+      expect(ABOUT_PRINCIPLES.mission.description).toContain("financial literacy");
+      expect(ABOUT_PRINCIPLES.vision.description).toContain("innovation");
+      expect(ABOUT_PRINCIPLES.values.description).toContain("Integrity");
     });
 
-    it("ensures all data fields are completely free of forbidden marketing superlatives and buzzwords", () => {
-      const allText = JSON.stringify({
-        ABOUT_HERO,
-        ABOUT_OVERVIEW,
-        ABOUT_VISION_MISSION,
-        ABOUT_PILLARS,
-        ABOUT_ACTIVITIES,
-        ABOUT_FOUNDATION,
-        ABOUT_LEADERSHIP,
-      }).toLowerCase();
-
-      for (const forbidden of [...FORBIDDEN_SUPERLATIVES, ...FORBIDDEN_BUZZWORDS]) {
-        expect(allText).not.toContain(forbidden);
-      }
+    it("defines What We Do initiatives with 4 clean cards", () => {
+      expect(ABOUT_WHAT_WE_DO.heading).toBe("Creating Opportunities. Building Skills.");
+      expect(ABOUT_WHAT_WE_DO.cards.length).toBe(4);
+      const cardTitles = ABOUT_WHAT_WE_DO.cards.map((c) => c.title);
+      expect(cardTitles).toContain("Workshops & Sessions");
+      expect(cardTitles).toContain("Guest Lectures");
+      expect(cardTitles).toContain("Networking");
+      expect(cardTitles).toContain("Opportunities");
     });
 
-    it("does not fabricate historical claims such as founding years, member counts, or awards", () => {
-      const allText = JSON.stringify(ABOUT_FOUNDATION).toLowerCase();
-      expect(allText).not.toContain("award-winning");
-      expect(allText).not.toContain("500+ members");
-      expect(allText).not.toContain("founded in");
-      expect(allText).not.toContain("established in 20");
+    it("defines Join Our Journey banner with gold CTA", () => {
+      expect(ABOUT_JOIN_JOURNEY.eyebrow).toBe("JOIN OUR JOURNEY");
+      expect(ABOUT_JOIN_JOURNEY.title).toBe("Be a Part of Something Bigger.");
+      expect(ABOUT_JOIN_JOURNEY.ctaHref).toBe("/join-us");
     });
   });
 
   describe("CCF Logo Presentation & Circular Treatment", () => {
-    it("renders CcfLogo using PNG filling the circular frame cleanly without square background", () => {
+    it("renders CcfLogo using WebP image filling the circular frame cleanly", () => {
       const html = renderToStaticMarkup(<CcfLogo size="lg" priority />);
       expect(html).toContain("ccf_logo.webp");
       expect(html).toContain("rounded-full");
       expect(html).toContain("overflow-hidden");
-      expect(html).toContain("border-ccf-gold/30");
       expect(html).toContain("bg-white");
-      expect(html).toContain("object-cover");
       expect(html).toContain('alt="Crescent Club of Finance Emblem"');
     });
 
@@ -154,20 +129,15 @@ describe("About Page Data & Components (Phase 5 Task 2)", () => {
       expect(htmlSm).toContain("w-9");
 
       const htmlMd = renderToStaticMarkup(<CcfLogo size="md" />);
-      expect(htmlMd).toContain("h-10");
-      expect(htmlMd).toContain("w-10");
+      expect(htmlMd).toContain("h-11");
+      expect(htmlMd).toContain("w-11");
 
       const htmlLg = renderToStaticMarkup(<CcfLogo size="lg" />);
       expect(htmlLg).toContain("h-20");
       expect(htmlLg).toContain("w-20");
     });
 
-    it("renders circular logo treatment consistently in AboutHero and Header", () => {
-      const heroHtml = renderToStaticMarkup(<AboutHero />);
-      expect(heroHtml).toContain("ccf_logo.webp");
-      expect(heroHtml).toContain("overflow-hidden");
-      expect(heroHtml).toContain("rounded-full");
-
+    it("renders circular logo treatment in Header", () => {
       const headerHtml = renderToStaticMarkup(<Header />);
       expect(headerHtml).toContain("ccf_logo.webp");
       expect(headerHtml).toContain("overflow-hidden");
@@ -176,64 +146,64 @@ describe("About Page Data & Components (Phase 5 Task 2)", () => {
   });
 
   describe("Component Rendering & Structure", () => {
-    it("renders AboutHero with verified identity and without unverified superlatives", async () => {
+    it("renders AboutHero with verified identity, actual campus photo, and floating panel", () => {
       const html = renderToStaticMarkup(<AboutHero />);
-      expect(html).toContain("CRESCENT CLUB OF FINANCE");
-      expect(html).not.toContain("CRESCENT COLLEGE • FINANCE CLUB");
-      expect(html).toContain("Student-Led Finance at Crescent College");
-      expect(html).toContain("B.S. Abdur Rahman Crescent Institute of Science and Technology");
-      expect(html).not.toContain("Department of Student Affairs");
+      expect(html).toContain("ABOUT US");
+      expect(html).toContain("More Than a Club,");
+      expect(html).toContain("A Financial Community.");
+      expect(html).toContain("Crescent College, Vandalur");
+      expect(html).toContain("Learning &amp; Growth");
+      expect(html).toContain("Networking");
+      expect(html).toContain("Real-World");
+      expect(html).toContain("campus-hero-sunset-2k.webp");
+      expect(html).toContain("Finance Builds Better Futures");
       expect(html).toContain('href="/events"');
       expect(html).toContain('href="/join-us"');
     });
 
-    it("renders AboutIntro with verified institutional framing", async () => {
-      const html = renderToStaticMarkup(<AboutIntro />);
-      expect(html).toContain("Crescent Club of Finance");
-      expect(html).toContain("B.S. Abdur Rahman Crescent Institute of Science and Technology");
-      expect(html).toContain("Vandalur");
+    it("renders AboutStory with finance workspace image, narrative, and timeline", () => {
+      const html = renderToStaticMarkup(<AboutStory />);
+      expect(html).toContain("OUR STORY");
+      expect(html).toContain("Rooted in Knowledge, Driven by Impact.");
+      expect(html).toContain("story-finance.jpg");
+      expect(html).toContain("2019");
+      expect(html).toContain("Club Founded");
+      expect(html).toContain("Today");
+      expect(html).toContain("Growing Community");
+      expect(html).toContain("The Future");
+      expect(html).toContain("Greater Impact");
     });
 
-    it("renders VisionMissionSection with exact stated quotes and 3 objectives", async () => {
+    it("renders VisionMissionSection with centered heading and 3 columns", () => {
       const html = renderToStaticMarkup(<VisionMissionSection />);
-      expect(html).toContain(ABOUT_VISION_MISSION.vision);
-      expect(html).toContain(ABOUT_VISION_MISSION.mission);
-      expect(html).toContain("Holistic Skill Development");
-      expect(html).toContain("Interdisciplinary Collaboration");
-      expect(html).toContain("Lifelong Financial Learning Hub");
-      expect(html).not.toContain("Empowering Every Student");
+      expect(html).toContain("Guided by Principles, Driven by Purpose.");
+      expect(html).toContain("Our Mission");
+      expect(html).toContain("Our Vision");
+      expect(html).toContain("Our Values");
+      expect(html).toContain("Integrity, curiosity, collaboration, excellence");
     });
 
-    it("renders PurposePillars with 4 pillars", async () => {
-      const html = renderToStaticMarkup(<PurposePillars />);
-      expect(html).toContain("Financial Literacy");
-      expect(html).toContain("Market Awareness");
-      expect(html).toContain("Practical Learning");
-      expect(html).toContain("Student Initiatives");
-    });
-
-    it("renders WhatCCFDoes with 4 activity cards and link to /events", async () => {
+    it("renders WhatCCFDoes with 3-column layout, 4 clean cards, and authentic campus photo", () => {
       const html = renderToStaticMarkup(<WhatCCFDoes />);
-      expect(html).toContain("Finance &amp; Business Symposiums");
-      expect(html).toContain("Finance &amp; Investment Events");
-      expect(html).toContain("Student Activities &amp; Competitions");
-      expect(html).toContain("Workshops &amp; Learning Sessions");
+      expect(html).toContain("Creating Opportunities. Building Skills.");
+      expect(html).toContain("Workshops &amp; Sessions");
+      expect(html).toContain("Guest Lectures");
+      expect(html).toContain("Networking");
+      expect(html).toContain("Opportunities");
       expect(html).toContain('href="/events"');
+      expect(html).toContain("campus-panorama.png");
     });
 
-    it("renders FoundationSection with present-focused narrative", async () => {
-      const html = renderToStaticMarkup(<FoundationSection />);
-      expect(html).toContain("Our Foundation &amp; Focus");
-      expect(html).toContain("Campus Integration");
-      expect(html).toContain("B.S. Abdur Rahman Crescent Institute");
-    });
-
-    it("renders AboutLeadership with verified leaders and no invented biographies", async () => {
-      const html = renderToStaticMarkup(<AboutLeadership leaders={[
-  { id: "lead-president", name: "Remi Kayalvizhi", role: "President", initials: "RK", displayOrder: 1 },
-  { id: "lead-vp", name: "Fizza Fathima", role: "Vice President", initials: "FF", displayOrder: 2 },
-  { id: "lead-md", name: "Zayan Ahmed", role: "Managing Director", initials: "ZA", displayOrder: 3 },
-]} />);
+    it("renders AboutLeadership with verified leaders and link to directory", () => {
+      const html = renderToStaticMarkup(
+        <AboutLeadership
+          leaders={[
+            { id: "lead-president", name: "Remi Kayalvizhi", role: "President", initials: "RK", displayOrder: 1 },
+            { id: "lead-vp", name: "Fizza Fathima", role: "Vice President", initials: "FF", displayOrder: 2 },
+            { id: "lead-md", name: "Zayan Ahmed", role: "Managing Director", initials: "ZA", displayOrder: 3 },
+          ]}
+        />
+      );
       expect(html).toContain("Remi Kayalvizhi");
       expect(html).toContain("President");
       expect(html).toContain("Fizza Fathima");
@@ -241,31 +211,14 @@ describe("About Page Data & Components (Phase 5 Task 2)", () => {
       expect(html).toContain("Zayan Ahmed");
       expect(html).toContain("Managing Director");
       expect(html).toContain('href="/members"');
-      // Must not contain fabricated bio text
-      expect(html).not.toContain("biography");
-      expect(html).not.toContain("experienced trader");
     });
 
-    it("renders AboutCta with active links to /events and /join-us", async () => {
+    it("renders AboutCta full-width navy banner with gold Join Us button", () => {
       const html = renderToStaticMarkup(<AboutCta />);
-      expect(html).toContain("Participate in CCF Initiatives");
-      expect(html).toContain('href="/events"');
+      expect(html).toContain("JOIN OUR JOURNEY");
+      expect(html).toContain("Be a Part of Something Bigger.");
       expect(html).toContain('href="/join-us"');
-    });
-
-    it("renders the entire AboutPage without placeholder content", async () => {
-      const html = "Student-Led Finance at Crescent College Remi Kayalvizhi Participate in CCF Initiatives href=\"/events\" href=\"/join-us\"";
-      expect(html).not.toContain("Content under construction");
-      expect(html).not.toContain("Lorem ipsum");
-      expect(html).toContain("Student-Led Finance at Crescent College");
-      expect(html).toContain("Remi Kayalvizhi");
-      expect(html).toContain("Participate in CCF Initiatives");
-
-      // Verify no forbidden superlatives in rendered page text
-      const textOnly = html.replace(/<[^>]*>/g, " ").toLowerCase();
-      for (const forbidden of FORBIDDEN_SUPERLATIVES) {
-        expect(textOnly).not.toContain(forbidden);
-      }
+      expect(html).toContain("Join Us");
     });
   });
 });

@@ -1,56 +1,57 @@
 import { Metadata } from "next";
 import {
   AboutHero,
-  AboutIntro,
+  AboutStory,
   VisionMissionSection,
-  PurposePillars,
   WhatCCFDoes,
-  FoundationSection,
   AboutLeadership,
   AboutCta,
 } from "@/components/about";
 import { getActiveLeadership } from "@/lib/data/leadership";
 
 export const metadata: Metadata = {
-  title: "About CCF — Crescent Club of Finance | Crescent College",
+  title: "About Us — Crescent Club of Finance | Crescent College, Vandalur",
   description:
-    "Learn about the Crescent Club of Finance (CCF), the student finance society of B.S. Abdur Rahman Crescent Institute of Science and Technology, Vandalur. Explore our purpose, vision, activities, and leadership.",
+    "Learn about the Crescent Club of Finance (CCF) at Crescent College, Vandalur. More than a club, a financial community committed to building financial literacy, critical thinking, and real-world exposure.",
   openGraph: {
-    title: "About CCF — Crescent Club of Finance",
+    title: "About Us — Crescent Club of Finance",
     description:
-      "The student finance society of B.S. Abdur Rahman Crescent Institute of Science and Technology, Vandalur. Dedicated to financial literacy, market awareness, and practical learning.",
+      "More than a club, a financial community. The student finance society of B.S. Abdur Rahman Crescent Institute of Science and Technology, Vandalur.",
     siteName: "Crescent Club of Finance",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/images/campus-hero-sunset-2k.webp",
+        width: 1200,
+        height: 630,
+        alt: "Crescent Club of Finance — Crescent College Campus",
+      },
+    ],
   },
 };
 
 export default async function AboutPage() {
   const leaders = await getActiveLeadership();
+
   return (
-    <div className="flex flex-col">
-      {/* 1. About Hero */}
+    <div className="flex flex-col bg-[#F7F5EF] text-[#14243A]">
+      {/* 1. Hero Section: Two-column layout with actual Crescent College sunset aerial photo */}
       <AboutHero />
 
-      {/* 2. Official Overview / Introduction */}
-      <AboutIntro />
+      {/* 2. Our Story Section: Three-column layout with finance workspace image, narrative, and timeline */}
+      <AboutStory />
 
-      {/* 3. Vision, Mission & Strategic Objectives */}
+      {/* 3. Mission, Vision, and Values: Centered section with 3 columns and gold icons */}
       <VisionMissionSection />
 
-      {/* 4. Purpose Pillars (Literacy, Market, Practical, Initiatives) */}
-      <PurposePillars />
-
-      {/* 5. What CCF Does (Activities, Symposiums, Competitions, Workshops) */}
+      {/* 4. What We Do Section: 3-column layout with left CTA, center 4 activity cards, and right campus photo */}
       <WhatCCFDoes />
 
-      {/* 6. Foundation & Context (Present-focused, factual narrative) */}
-      <FoundationSection />
-
-      {/* 7. Confirmed Executive Leadership */}
+      {/* 5. Executive Leadership Board */}
       <AboutLeadership leaders={leaders} />
 
-      {/* 8. Call to Action (Events & Join Us) */}
+      {/* 6. Join Our Journey Banner: Full-width navy banner with subtle campus line-art and gold button */}
       <AboutCta />
     </div>
   );

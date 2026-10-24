@@ -1,4 +1,5 @@
 export { AboutHero } from "./about-hero";
+export { AboutStory } from "./about-story";
 export { AboutIntro } from "./about-intro";
 export { VisionMissionSection } from "./vision-mission";
 export { PurposePillars } from "./purpose-pillars";
