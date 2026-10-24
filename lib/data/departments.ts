@@ -7,12 +7,14 @@ export interface CcfDepartment {
   shortDescription: string;
   description: string;
   focusAreas: readonly string[];
+  tags: readonly string[];
+  lead: string;
   iconName: "TrendingUp" | "Monitor" | "Megaphone" | "FolderKanban" | "CalendarDays";
 }
 
 /**
- * Five confirmed CCF departments as specified in Section 10.3 of the Product Engineering Handbook.
- * Factual and conservative descriptions adhering to verified project documentation.
+ * Five confirmed CCF departments in canonical order matching the navbar dropdown.
+ * Fallback data with specified copy, tags, and leads.
  */
 export const CCF_DEPARTMENTS: readonly CcfDepartment[] = [
   {
@@ -20,14 +22,12 @@ export const CCF_DEPARTMENTS: readonly CcfDepartment[] = [
     slug: "finance-management",
     name: "Finance Management",
     shortDescription:
-      "Responsible for club budgeting, financial planning, and sponsorship tracking.",
+      "Manages the club's budgets, sponsorships and accounts, and shares money-management learning with members.",
     description:
-      "Oversees budgeting, financial records, and sponsorship tracking for CCF club activities.",
-    focusAreas: [
-      "Club budgeting and planning",
-      "Financial records and documentation",
-      "Sponsorship and resource tracking",
-    ],
+      "Manages the club's budgets, sponsorships and accounts, and shares money-management learning with members.",
+    focusAreas: ["Budgeting", "Sponsors", "Research"],
+    tags: ["Budgeting", "Sponsors", "Research"],
+    lead: "Lead · TBA",
     iconName: "TrendingUp",
   },
   {
@@ -35,14 +35,12 @@ export const CCF_DEPARTMENTS: readonly CcfDepartment[] = [
     slug: "it-media",
     name: "IT & Media",
     shortDescription:
-      "Manages the CCF web platform, technical systems, and digital media production.",
+      "Runs the website and digital tools, plus photography, video and design for the club.",
     description:
-      "Maintains the CCF website, digital systems, and media assets for club initiatives.",
-    focusAreas: [
-      "CCF website and platform maintenance",
-      "Digital media and creative assets",
-      "Technical support for club systems",
-    ],
+      "Runs the website and digital tools, plus photography, video and design for the club.",
+    focusAreas: ["Web", "Design", "Video"],
+    tags: ["Web", "Design", "Video"],
+    lead: "Lead · TBA",
     iconName: "Monitor",
   },
   {
@@ -50,14 +48,12 @@ export const CCF_DEPARTMENTS: readonly CcfDepartment[] = [
     slug: "marketing-pr",
     name: "Marketing & PR",
     shortDescription:
-      "Handles publicity, social channels, and student communications across campus.",
+      "Social media, outreach and partnerships that spread the word about CCF.",
     description:
-      "Coordinates club publicity, official social media channels, and campus communications.",
-    focusAreas: [
-      "Campus publicity and communications",
-      "Official social media channels",
-      "Student outreach for club initiatives",
-    ],
+      "Social media, outreach and partnerships that spread the word about CCF.",
+    focusAreas: ["Social", "Outreach", "Partners"],
+    tags: ["Social", "Outreach", "Partners"],
+    lead: "Lead · TBA",
     iconName: "Megaphone",
   },
   {
@@ -65,14 +61,12 @@ export const CCF_DEPARTMENTS: readonly CcfDepartment[] = [
     slug: "project-department",
     name: "Project Department",
     shortDescription:
-      "Coordinates initiatives, workshops, and collaborative academic activities.",
+      "Plans and delivers student-led finance projects, from first idea to launch.",
     description:
-      "Coordinates educational workshops, student initiatives, and collaborative learning activities.",
-    focusAreas: [
-      "Student workshops and seminars",
-      "Collaborative learning projects",
-      "Educational activities across disciplines",
-    ],
+      "Plans and delivers student-led finance projects, from first idea to launch.",
+    focusAreas: ["Planning", "Research", "Delivery"],
+    tags: ["Planning", "Research", "Delivery"],
+    lead: "Lead · TBA",
     iconName: "FolderKanban",
   },
   {
@@ -80,14 +74,12 @@ export const CCF_DEPARTMENTS: readonly CcfDepartment[] = [
     slug: "event-management",
     name: "Event Management",
     shortDescription:
-      "Plans and executes club events, seminars, and student competitions.",
+      "Plans and runs symposiums, quizzes, workshops and investment events.",
     description:
-      "Coordinates logistics, venue scheduling, and on-ground operations for club events.",
-    focusAreas: [
-      "Event planning and logistics",
-      "Venue coordination and scheduling",
-      "On-ground event execution",
-    ],
+      "Plans and runs symposiums, quizzes, workshops and investment events.",
+    focusAreas: ["Symposiums", "Quizzes", "Logistics"],
+    tags: ["Symposiums", "Quizzes", "Logistics"],
+    lead: "Lead · TBA",
     iconName: "CalendarDays",
   },
 ] as const;
