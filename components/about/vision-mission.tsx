@@ -100,13 +100,13 @@ function FoundationCard({ card }: { card: FoundationCardData }) {
 
   return (
     <div
-      className={`group relative rounded-[22px] bg-white p-8 sm:p-9 flex flex-col justify-between space-y-6 transition-all duration-300 hover:-translate-y-1.5 focus-within:ring-2 focus-within:ring-[#B99746] ${
+      className={`group relative rounded-[22px] bg-white p-8 sm:p-9 lg:p-10 flex flex-col justify-between space-y-7 transition-all duration-300 hover:-translate-y-2 focus-within:ring-2 focus-within:ring-[#B99746] ${
         card.isHighlighted
-          ? "border-2 border-[#B99746] shadow-[0_16px_36px_rgba(185,151,70,0.14)] hover:shadow-[0_22px_44px_rgba(185,151,70,0.22)]"
-          : "border border-[#E5DED0] shadow-[0_6px_20px_rgba(20,38,63,0.04)] hover:border-[#B99746]/70 hover:shadow-xl"
+          ? "border-2 border-[#B99746] shadow-[0_16px_36px_rgba(185,151,70,0.18)] hover:shadow-[0_24px_48px_rgba(185,151,70,0.26)]"
+          : "border border-[#E5DED0] shadow-[0_6px_22px_rgba(20,38,63,0.04)] hover:border-[#B99746]/70 hover:shadow-xl"
       }`}
     >
-      {/* Highlight Top Badge for Card 02 (Our Vision) */}
+      {/* Highlight Top Pill Badge for Card 02 (Our Vision) */}
       {card.isHighlighted && (
         <div
           className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] text-white shadow-sm"
@@ -123,7 +123,7 @@ function FoundationCard({ card }: { card: FoundationCardData }) {
         <div className="flex items-center justify-between">
           {/* Subtle Cream Rounded-Square Icon Container */}
           <div
-            className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#E8D8AF]/60 bg-[#FAF7EE] text-[#B99746] shadow-2xs group-hover:bg-[#B99746] group-hover:text-white transition-colors duration-300"
+            className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#E8D8AF]/70 bg-[#FAF7EE] text-[#B99746] shadow-2xs group-hover:bg-[#B99746] group-hover:text-white transition-colors duration-300"
             aria-hidden="true"
           >
             <Icon className="h-7 w-7 transition-transform group-hover:scale-105" />
@@ -131,7 +131,7 @@ function FoundationCard({ card }: { card: FoundationCardData }) {
 
           {/* Number 01 / 02 / 03 */}
           <span
-            className="font-serif text-2xl font-bold text-[#B99746]/50 group-hover:text-[#B99746] transition-colors"
+            className="font-serif text-2xl sm:text-[26px] font-bold text-[#B99746]/50 group-hover:text-[#B99746] transition-colors"
             style={{ fontFeatureSettings: '"lnum" 1' }}
           >
             {card.number}
@@ -139,11 +139,14 @@ function FoundationCard({ card }: { card: FoundationCardData }) {
         </div>
 
         {/* Category Label & Title */}
-        <div className="space-y-1.5">
+        <div className="space-y-2">
           <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#B99746]">
             {card.category}
           </div>
-          <h3 className="font-serif text-2xl sm:text-[28px] font-bold text-[#14263F] leading-tight">
+          <h3
+            className="font-serif text-2xl sm:text-[30px] font-bold text-[#14263F] leading-tight"
+            style={{ fontFeatureSettings: '"lnum" 1' }}
+          >
             {card.title}
           </h3>
         </div>
@@ -186,25 +189,25 @@ function BenefitItem({
 
   return (
     <div
-      className={`flex flex-col items-center text-center p-4 sm:p-5 ${
+      className={`flex flex-col items-center text-center p-2.5 sm:p-5 lg:p-6 ${
         !isLast ? "lg:border-r lg:border-[#E5DED0]/80" : ""
       }`}
     >
       {/* Cream Circle with Gold Icon */}
       <div
-        className="flex h-12 w-12 items-center justify-center rounded-full border border-[#E8D8AF]/60 bg-[#FAF7EE] text-[#B99746] shadow-2xs mb-3.5"
+        className="flex h-11 w-11 sm:h-13 sm:w-13 items-center justify-center rounded-full border border-[#E8D8AF]/70 bg-[#FAF7EE] text-[#B99746] shadow-2xs mb-2.5 sm:mb-3.5"
         aria-hidden="true"
       >
-        <Icon className="h-5 w-5" />
+        <Icon className="h-4 sm:h-5 w-4 sm:w-5" />
       </div>
 
       {/* Navy Heading */}
-      <h4 className="text-base font-bold text-[#14263F] mb-1">
+      <h4 className="text-sm sm:text-base lg:text-[17px] font-bold text-[#14263F] mb-1">
         {item.title}
       </h4>
 
       {/* Blue-gray Description */}
-      <p className="text-xs sm:text-sm text-[#58708D] leading-relaxed max-w-[210px]">
+      <p className="text-[11px] sm:text-sm text-[#58708D] leading-relaxed max-w-[180px] sm:max-w-[210px]">
         {item.description}
       </p>
     </div>
@@ -212,7 +215,7 @@ function BenefitItem({
 }
 
 /* -------------------------------------------------------------------------- */
-/* Main VisionMissionSection / Foundation Redesign                            */
+/* Main VisionMissionSection / Foundation Section                             */
 /* -------------------------------------------------------------------------- */
 
 export function VisionMissionSection() {
@@ -230,11 +233,11 @@ export function VisionMissionSection() {
         >
           <defs>
             <linearGradient id="leafGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#E8D8AF" stopOpacity="0.6" />
+              <stop offset="0%" stopColor="#E8D8AF" stopOpacity="0.65" />
               <stop offset="100%" stopColor="#B99746" stopOpacity="0.3" />
             </linearGradient>
             <linearGradient id="leafGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#F4E8C8" stopOpacity="0.7" />
+              <stop offset="0%" stopColor="#F4E8C8" stopOpacity="0.75" />
               <stop offset="100%" stopColor="#D4B87A" stopOpacity="0.35" />
             </linearGradient>
           </defs>
@@ -266,7 +269,7 @@ export function VisionMissionSection() {
             stroke="#B99746"
             strokeWidth="1"
           />
-          {/* Leaf 4 (Inner/Secondary) */}
+          {/* Leaf 4 (Secondary Inner) */}
           <path
             d="M15 110 C-5 130 8 160 32 155 C40 132 28 114 15 110 Z"
             fill="url(#leafGrad2)"
@@ -296,48 +299,48 @@ export function VisionMissionSection() {
         </svg>
       </div>
 
-      {/* Main Container */}
+      {/* Main Content Container (Max width ~1400px) */}
       <Container className="relative z-10 pt-20 md:pt-28 pb-16 md:pb-24 space-y-16 max-w-7xl">
-        {/* 1. Centered Section Heading */}
+        {/* 1. Centered Hero Heading */}
         <div className="text-center max-w-3xl mx-auto space-y-5">
           {/* Eyebrow: — OUR FOUNDATION — */}
           <div className="inline-flex items-center gap-3">
-            <span className="w-8 h-[1px] bg-[#B99746]" aria-hidden="true" />
+            <span className="w-10 h-[1px] bg-[#B99746]" aria-hidden="true" />
             <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#B99746]">
               OUR FOUNDATION
             </span>
-            <span className="w-8 h-[1px] bg-[#B99746]" aria-hidden="true" />
+            <span className="w-10 h-[1px] bg-[#B99746]" aria-hidden="true" />
           </div>
 
-          {/* Main Display Heading */}
-          <h2
-            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-bold text-[#14263F] leading-[1.1] tracking-tight"
+          {/* Main Display Heading (H1 for page) */}
+          <h1
+            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-bold text-[#14263F] leading-[1.08] tracking-tight"
             style={{ fontFeatureSettings: '"lnum" 1' }}
           >
             Guided by Principles, Driven by Purpose.
-          </h2>
+          </h1>
 
           {/* Supporting Text */}
           <p className="text-[#58708D] text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
             Our values shape who we are, how we work, and the impact we create in the lives of our students and communities.
           </p>
 
-          {/* Thin Decorative Gold Divider */}
+          {/* Thin Decorative Gold Divider Underneath */}
           <div className="flex items-center justify-center pt-2">
             <div className="h-[1.5px] w-20 bg-[#B99746] rounded-full" />
           </div>
         </div>
 
-        {/* 2. Three Horizontally Aligned Cards */}
+        {/* 2 & 3. Three Horizontally Aligned Cards (Mission, Vision, Values) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch pt-2">
           {FOUNDATION_CARDS.map((card) => (
             <FoundationCard key={card.id} card={card} />
           ))}
         </div>
 
-        {/* 3. Key Benefits / Highlight Row (4 items) */}
-        <div className="rounded-[24px] border border-[#E5DED0] bg-white/95 p-6 sm:p-8 md:p-9 shadow-[0_4px_24px_rgba(20,38,63,0.03)] backdrop-blur-xs">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0">
+        {/* 4. Four-Item Benefits Row (2-col mobile, 4-col desktop) */}
+        <div className="rounded-[24px] border border-[#E5DED0] bg-white p-5 sm:p-8 md:p-10 shadow-[0_6px_24px_rgba(20,38,63,0.03)]">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-0">
             {HIGHLIGHT_BENEFITS.map((item, idx) => (
               <BenefitItem
                 key={item.id}
@@ -349,7 +352,7 @@ export function VisionMissionSection() {
         </div>
       </Container>
 
-      {/* 4. Full-Width Deep Navy Closing Quote Section */}
+      {/* 5. Full-Width Deep Navy Closing Section */}
       <div className="w-full bg-[#101D2D] relative overflow-hidden text-center text-white">
         {/* Organic Curved Wave Transition at the top */}
         <div className="w-full overflow-hidden leading-none bg-[#F7F5EF]">
@@ -367,7 +370,7 @@ export function VisionMissionSection() {
           </svg>
         </div>
 
-        <div className="relative py-14 sm:py-16 md:py-20 px-6 max-w-4xl mx-auto space-y-5">
+        <div className="relative py-16 sm:py-20 md:py-24 px-6 max-w-4xl mx-auto space-y-6">
           {/* Subtle Background Curved Gold Rings & Flourishes */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20" aria-hidden="true">
             <svg width="640" height="220" viewBox="0 0 640 220" fill="none">
@@ -391,9 +394,9 @@ export function VisionMissionSection() {
 
           {/* Uppercase Gold Foundation Tagline */}
           <div className="relative z-10 inline-flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-[#B99746] font-bold">
-            <span className="w-8 h-[1px] bg-[#B99746]/70" aria-hidden="true" />
+            <span className="w-10 h-[1px] bg-[#B99746]/70" aria-hidden="true" />
             <span>CCF FOUNDATION</span>
-            <span className="w-8 h-[1px] bg-[#B99746]/70" aria-hidden="true" />
+            <span className="w-10 h-[1px] bg-[#B99746]/70" aria-hidden="true" />
           </div>
         </div>
 
